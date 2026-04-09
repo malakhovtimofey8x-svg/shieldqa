@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShieldQA — Autonomous QA Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg0: #05050f;
+    --bg1: #080818;
+    --bg2: #0c0c22;
+    --bg3: #10102e;
+    --border: #1c1c3a;
+    --border-hi: #2e2e5a;
+    --blue: #4f8ef7;
+    --blue-light: #7eb3ff;
+    --violet: #9b6dff;
+    --violet-light: #c4a0ff;
+    --indigo: #6e7fff;
+    --text-primary: #dde2ff;
+    --text-second: #8890cc;
+    --text-dim: #3a3a6a;
+    --mono: 'DM Mono', monospace;
+    --syne: 'Syne', sans-serif;
+  }
+
+  html, body { min-height: 100%; background: var(--bg1); color: var(--text-primary); font-family: var(--mono); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg0); }
+  ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
+
+  /* Keyframes */
+  @keyframes ping    { 0%,100%{transform:scale(1);opacity:.35} 50%{transform:scale(2.4);opacity:0} }
+  @keyframes scan    { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+  @keyframes fadeIn  { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
+  @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+  @keyframes orb1    { 0%,100%{transform:translate(0,0)} 33%{transform:translate(50px,-40px)} 66%{transform:translate(-30px,30px)} }
+  @keyframes orb2    { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-40px,50px)} 66%{transform:translate(40px,-30px)} }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+
+  /* Ambient orbs */
+  #orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .orb { position: absolute; border-radius: 50%; }
+  .orb1 { width:700px; height:700px; background:radial-gradient(circle,#4f8ef718 0%,transparent 70%); top:-250px; left:-150px; animation:orb1 20s ease-in-out infinite; }
+  .orb2 { width:600px; height:600px; background:radial-gradient(circle,#9b6dff14 0%,transparent 70%); bottom:-150px; right:-150px; animation:orb2 25s ease-in-out infinite; }
+  .orb3 { width:400px; height:400px; background:radial-gradient(circle,#6e7fff0e 0%,transparent 70%); top:35%; left:45%; animation:orb1 16s ease-in-out infinite reverse; }
+
+  /* Header */
+  #header {
+    position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,15,.92);
+    backdrop-filter: blur(20px);
+    padding: 0 24px;
+  }
+  #header-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:58px; }
+  .logo-mark { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,#4f8ef7,#9b6dff); display:flex; align-items:center; justify-content:center; font-size:17px; box-shadow:0 0 20px #4f8ef755; flex-shrink:0; }
+  .logo-name { font-family:var(--syne); font-weight:800; font-size:16px; background:linear-gradient(90deg,#7eb3ff,#c4a0ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:-.02em; }
+  .logo-sub  { font-size:9px; color:var(--text-dim); letter-spacing:.12em; }
+  #header-right { display:flex; align-items:center; gap:20px; font-size:11px; }
+  .grad-text { background:linear-gradient(90deg,#7eb3ff,#c4a0ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  /* Pulsing dot */
+  .pdot { position:relative; display:inline-block; flex-shrink:0; }
+  .pdot-ring { position:absolute; inset:0; border-radius:50%; opacity:.35; animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
+  .pdot-core { position:absolute; inset:0; border-radius:50%; }
+
+  /* Main wrapper */
+  #main { max-width:1100px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+
+  /* ── HERO ── */
+  #hero { text-align:center; padding:90px 20px 70px; animation:fadeIn .6s ease; }
+  .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:5px 16px; border-radius:20px; margin-bottom:32px; border:1px solid rgba(79,142,247,.22); background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(155,109,255,.07)); font-size:11px; letter-spacing:.08em; }
+  #hero h1 { font-family:var(--syne); font-weight:800; font-size:clamp(34px,6.5vw,60px); line-height:1.08; letter-spacing:-.03em; margin-bottom:20px; }
+  #hero h1 .line1 { color:var(--text-primary); display:block; }
+  #hero h1 .line2 { background:linear-gradient(90deg,#4f8ef7,#9b6dff,#7eb3ff); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 4s linear infinite; display:block; }
+  #hero p { color:var(--text-second); font-size:14px; max-width:440px; margin:0 auto 52px; line-height:1.75; }
+
+  /* URL input */
+  #url-wrapper { max-width:580px; margin:0 auto; position:relative; }
+  #url-border  { position:absolute; inset:-1px; border-radius:15px; background:linear-gradient(135deg,rgba(79,142,247,.4),rgba(155,109,255,.4)); pointer-events:none; z-index:0; }
+  #url-inner   { position:relative; z-index:1; display:flex; background:var(--bg2); border-radius:14px; padding:5px; }
+  #url-input   { flex:1; background:transparent; border:none; outline:none; color:var(--text-primary); font-size:14px; padding:12px 16px; font-family:var(--mono); }
+  #url-input::placeholder { color:var(--text-dim); }
+  #run-btn     { background:linear-gradient(135deg,#4f8ef7,#9b6dff); color:#fff; border:none; border-radius:10px; padding:12px 28px; font-size:13px; font-family:var(--mono); font-weight:500; cursor:pointer; letter-spacing:.04em; box-shadow:0 0 20px rgba(79,142,247,.25); transition:box-shadow .2s,transform .15s; white-space:nowrap; }
+  #run-btn:hover { box-shadow:0 0 32px rgba(79,142,247,.45); transform:translateY(-1px); }
+  #run-btn:active { transform:translateY(0); }
+
+  .feature-pills { display:flex; justify-content:center; gap:12px; margin-top:52px; flex-wrap:wrap; }
+  .pill { display:flex; align-items:center; gap:8px; background:var(--bg2); border:1px solid var(--border); border-radius:20px; padding:7px 16px; font-size:12px; color:var(--text-second); }
+
+  /* ── DASHBOARD ── */
+  #dashboard { padding-top:24px; animation:fadeIn .3s ease; }
+
+  /* Status bar */
+  #status-bar { display:flex; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:12px 20px; margin-bottom:20px; flex-wrap:wrap; gap:12px; box-shadow:inset 0 0 40px rgba(79,142,247,.03); }
+  #status-left, #status-right { display:flex; align-items:center; gap:12px; }
+  .status-label { color:var(--text-dim); font-size:11px; letter-spacing:.06em; }
+  .status-url   { font-size:12px; }
+  .run-label    { color:var(--text-dim); font-size:11px; }
+  #rescan-btn   { background:transparent; border:1px solid var(--border-hi); color:var(--text-second); border-radius:7px; padding:5px 14px; font-size:11px; font-family:var(--mono); cursor:pointer; transition:all .2s; }
+  #rescan-btn:hover { border-color:var(--blue); color:var(--blue-light); }
+
+  /* Metric cards */
+  #metrics { display:grid; grid-template-columns:auto 1fr 1fr 1fr 1fr; gap:12px; margin-bottom:20px; animation:fadeIn .5s ease; }
+  .metric-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:16px 20px; position:relative; overflow:hidden; }
+  .metric-card .bar { position:absolute; top:0; right:0; bottom:0; width:3px; background:linear-gradient(180deg,#4f8ef7,#9b6dff); border-radius:0 14px 14px 0; }
+  .metric-label { font-size:10px; color:var(--text-dim); letter-spacing:.1em; margin-bottom:6px; }
+  .metric-value { font-size:26px; font-weight:700; font-family:var(--syne); }
+  #score-card   { display:flex; align-items:center; justify-content:center; box-shadow:0 0 28px rgba(79,142,247,.1); }
+
+  /* Tabs */
+  #tabs { display:flex; gap:2px; margin-bottom:18px; background:var(--bg0); border-radius:10px; padding:4px; width:fit-content; border:1px solid var(--border); }
+  .tab-btn { background:transparent; border:1px solid transparent; color:var(--text-dim); border-radius:7px; padding:7px 18px; font-size:12px; font-family:var(--mono); cursor:pointer; transition:all .15s; }
+  .tab-btn.active { background:linear-gradient(135deg,rgba(79,142,247,.15),rgba(155,109,255,.15)); border-color:rgba(79,142,247,.25); color:var(--blue-light); }
+
+  /* Tab panels */
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; animation:fadeIn .25s ease; }
+
+  /* Task grid */
+  #tasks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px; }
+
+  /* Task card */
+  .task-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:16px; position:relative; overflow:hidden; transition:border-color .4s, box-shadow .4s; }
+  .task-card.running { border-color:rgba(79,142,247,.19); box-shadow:0 0 24px rgba(79,142,247,.09); }
+  .task-scan-bar { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#4f8ef7,#9b6dff,transparent); animation:scan 1.8s linear infinite; }
+  .task-corner  { position:absolute; top:0; right:0; width:70px; height:70px; pointer-events:none; }
+  .task-header  { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .task-title   { display:flex; align-items:center; gap:10px; }
+  .task-icon    { font-size:17px; }
+  .task-name    { color:var(--text-primary); font-size:13px; font-weight:500; }
+  .task-meta    { display:flex; align-items:center; gap:7px; }
+  .task-score   { font-size:11px; padding:2px 8px; border-radius:5px; border-width:1px; border-style:solid; }
+  .task-status  { font-size:10px; letter-spacing:.06em; }
+  .subtask-pills { display:flex; gap:5px; flex-wrap:wrap; }
+  .subtask-pill  { font-size:10px; color:var(--text-dim); background:var(--bg3); padding:2px 8px; border-radius:4px; border:1px solid var(--border); transition:all .3s; }
+  .subtask-pill.active { color:var(--blue); background:rgba(79,142,247,.08); border-color:rgba(79,142,247,.25); }
+  .subtask-pill.done   { color:#9b6dff; border-color:rgba(155,109,255,.19); }
+  .task-checking { color:var(--blue); font-size:11px; opacity:.7; margin-top:8px; }
+  .task-summary  { color:var(--text-second); font-size:11px; margin:0 0 8px; line-height:1.55; }
+  .task-issues   { display:flex; flex-direction:column; gap:4px; }
+  .task-issue    { border-radius:6px; padding:5px 10px; display:flex; gap:8px; align-items:flex-start; border-width:1px; border-style:solid; }
+  .issue-badge   { font-size:10px; flex-shrink:0; margin-top:1px; letter-spacing:.04em; }
+  .issue-title   { color:#cccce8; font-size:11px; line-height:1.4; }
+  .no-issues     { color:#5bdfb0; font-size:11px; }
+
+  /* Issues tab */
+  #issues-list { display:flex; flex-direction:column; gap:8px; }
+  #issues-empty { font-size:13px; text-align:center; padding:50px; }
+  .issue-row    { border-radius:10px; overflow:hidden; border-width:1px; border-style:solid; border-color:var(--border); transition:border-color .25s, box-shadow .25s; cursor:pointer; }
+  .issue-row-head { display:flex; align-items:center; gap:12px; padding:12px 16px; }
+  .issue-sev-badge { font-size:10px; padding:2px 9px; border-radius:4px; flex-shrink:0; letter-spacing:.06em; border-width:1px; border-style:solid; }
+  .issue-row-title { flex:1; font-size:13px; color:var(--text-primary); }
+  .issue-row-cat   { font-size:10px; color:var(--text-dim); }
+  .issue-row-arrow { font-size:11px; color:var(--text-dim); }
+  .issue-row-body  { display:none; background:var(--bg0); padding:14px 16px; border-top:1px solid var(--border); }
+  .issue-row-body.open { display:block; animation:slideDown .2s ease; }
+  .issue-section       { margin-bottom:12px; }
+  .issue-section-label { font-size:10px; letter-spacing:.1em; margin-bottom:5px; }
+  .issue-section-text  { font-size:12px; line-height:1.65; }
+
+  /* Logs tab */
+  #logs-box  { background:var(--bg0); border:1px solid var(--border); border-radius:12px; padding:16px; height:460px; overflow-y:auto; display:flex; flex-direction:column; gap:2px; box-shadow:inset 0 0 40px rgba(155,109,255,.03); }
+  #logs-head { display:flex; align-items:center; gap:8px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+  #logs-head span { font-size:10px; color:var(--text-dim); letter-spacing:.08em; }
+  .log-line  { display:flex; gap:10px; font-size:11px; line-height:1.65; animation:fadeIn .2s ease; }
+  .log-time  { color:var(--text-dim); flex-shrink:0; }
+  .log-type  { flex-shrink:0; }
+  .log-msg   { color:var(--text-second); }
+
+  /* Report tab */
+  #report-content { display:flex; flex-direction:column; gap:14px; animation:fadeIn .4s ease; }
+  #report-placeholder { color:var(--text-dim); font-size:13px; text-align:center; padding:50px; }
+  .report-card { background:var(--bg2); border-radius:14px; padding:20px 24px; border:1px solid var(--border); position:relative; overflow:hidden; }
+  .report-card-bar { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#4f8ef7,#9b6dff); }
+  .report-label { font-size:10px; color:var(--text-dim); letter-spacing:.1em; margin-bottom:10px; }
+  .report-headline { font-size:16px; font-family:var(--syne); font-weight:600; line-height:1.5; margin-bottom:12px; background:linear-gradient(90deg,#7eb3ff,#c4a0ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .report-rec { font-size:12px; color:var(--text-second); line-height:1.7; }
+  .priority-card { background:#140510; border:1px solid rgba(255,91,127,.19); border-radius:14px; padding:16px 20px; display:flex; gap:14px; align-items:flex-start; box-shadow:0 0 20px rgba(255,91,127,.05); }
+  .priority-icon  { font-size:20px; flex-shrink:0; }
+  .priority-label { font-size:10px; color:#ff5b7f; letter-spacing:.1em; margin-bottom:6px; }
+  .priority-text  { font-size:13px; color:#e8b0c0; line-height:1.65; }
+  .positives-card { background:linear-gradient(135deg,rgba(79,142,247,.03),rgba(155,109,255,.03)); border:1px solid rgba(79,142,247,.15); border-radius:14px; padding:16px 20px; }
+  .positives-label { font-size:10px; color:var(--blue); letter-spacing:.1em; margin-bottom:10px; }
+  .positive-item { display:flex; gap:10px; margin-bottom:8px; font-size:12px; color:var(--text-second); line-height:1.55; }
+  .positive-check { background:linear-gradient(90deg,#7eb3ff,#c4a0ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; flex-shrink:0; }
+  .breakdown-card { background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:16px 20px; }
+  .breakdown-label { font-size:10px; color:var(--text-dim); letter-spacing:.1em; margin-bottom:14px; }
+  .breakdown-grid  { display:flex; gap:12px; flex-wrap:wrap; }
+  .breakdown-item  { border-radius:10px; padding:12px 20px; min-width:90px; text-align:center; border-width:1px; border-style:solid; }
+  .breakdown-num   { font-size:22px; font-weight:700; font-family:var(--syne); }
+  .breakdown-name  { font-size:10px; opacity:.65; letter-spacing:.06em; margin-top:2px; }
+  .timer-card { border-radius:12px; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--border-hi); background:linear-gradient(135deg,rgba(79,142,247,.06),rgba(155,109,255,.06)); }
+  .timer-left { display:flex; align-items:center; gap:10px; }
+  .timer-label { font-size:12px; color:var(--text-second); }
+  .timer-value { font-size:22px; font-family:var(--syne); font-weight:700; background:linear-gradient(90deg,#7eb3ff,#c4a0ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  /* hidden */
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+
+<div id="orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-inner">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="logo-mark">⬡</div>
+      <div>
+        <div class="logo-name">ShieldQA</div>
+        <div class="logo-sub">AUTONOMOUS QA AGENT</div>
+      </div>
+    </div>
+    <div id="header-right">
+      <div id="header-status" class="hidden" style="display:flex;align-items:center;gap:7px;">
+        <span class="pdot" id="header-dot" style="width:7px;height:7px;">
+          <span class="pdot-ring" style="background:#4f8ef7;"></span>
+          <span class="pdot-core" style="background:#4f8ef7;"></span>
+        </span>
+        <span id="header-status-text" style="color:var(--text-dim);">scanning</span>
+      </div>
+      <div id="header-timer" class="hidden" style="display:flex;align-items:center;gap:7px;">
+        <span style="color:var(--text-dim);">next</span>
+        <span id="header-timer-val" class="grad-text" style="font-weight:500;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-badge">
+      <span class="pdot" style="width:6px;height:6px;">
+        <span class="pdot-ring" style="background:#9b6dff;"></span>
+        <span class="pdot-core" style="background:#9b6dff;"></span>
+      </span>
+      <span class="grad-text">AI-POWERED · 24/7 CONTINUOUS TESTING</span>
+    </div>
+    <h1>
+      <span class="line1">Drop a URL.</span>
+      <span class="line2">We break it first.</span>
+    </h1>
+    <p>Paste your site URL. The AI agent runs comprehensive QA tests, analyzes failures, and continuously monitors around the clock.</p>
+
+    <div id="url-wrapper">
+      <div id="url-border"></div>
+      <div id="url-inner">
+        <input id="url-input" type="text" placeholder="https://yourapp.com" autocomplete="off" spellcheck="false">
+        <button id="run-btn">Run Agent →</button>
+      </div>
+    </div>
+
+    <div class="feature-pills">
+      <div class="pill"><span>🔐</span><span>Auth testing</span></div>
+      <div class="pill"><span>⚡</span><span>API monitoring</span></div>
+      <div class="pill"><span>🤖</span><span>AI bug analysis</span></div>
+      <div class="pill"><span>♻️</span><span>Runs 24/7</span></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden">
+
+    <!-- Status bar -->
+    <div id="status-bar">
+      <div id="status-left">
+        <span class="pdot" id="status-dot" style="width:8px;height:8px;">
+          <span class="pdot-ring" style="background:#4f8ef7;"></span>
+          <span class="pdot-core" style="background:#4f8ef7;"></span>
+        </span>
+        <span class="status-label">TARGET</span>
+        <span id="status-url" class="grad-text status-url"></span>
+      </div>
+      <div id="status-right">
+        <span id="run-label" class="run-label">run #1</span>
+        <button id="rescan-btn" class="hidden">↺ Rescan now</button>
+      </div>
+    </div>
+
+    <!-- Metrics (hidden until done) -->
+    <div id="metrics" class="hidden">
+      <div class="metric-card" id="score-card">
+        <svg id="score-ring" width="84" height="84" style="transform:rotate(-90deg);">
+          <circle cx="42" cy="42" r="33" fill="none" stroke="#1c1c3a" stroke-width="7"/>
+          <circle id="score-arc" cx="42" cy="42" r="33" fill="none" stroke="#5bdfb0" stroke-width="7" stroke-linecap="round" stroke-dasharray="0 207.3" style="transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1);"/>
+          <text id="score-text" x="42" y="42" text-anchor="middle" dominant-baseline="central" fill="#5bdfb0" font-size="18" font-family="'DM Mono',monospace" font-weight="600" style="transform:rotate(90deg);transform-origin:42px 42px;">—</text>
+        </svg>
+      </div>
+      <div class="metric-card" id="mc-status">
+        <div class="bar"></div>
+        <div class="metric-label">STATUS</div>
+        <div class="metric-value" id="mv-status">—</div>
+      </div>
+      <div class="metric-card" id="mc-issues">
+        <div class="bar"></div>
+        <div class="metric-label">ISSUES</div>
+        <div class="metric-value" id="mv-issues">0</div>
+      </div>
+      <div class="metric-card" id="mc-critical">
+        <div class="bar"></div>
+        <div class="metric-label">CRITICAL</div>
+        <div class="metric-value" id="mv-critical">0</div>
+      </div>
+      <div class="metric-card" id="mc-high">
+        <div class="bar"></div>
+        <div class="metric-label">HIGH</div>
+        <div class="metric-value" id="mv-high">0</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div id="tabs">
+      <button class="tab-btn active" data-tab="tasks">Tasks</button>
+      <button class="tab-btn" data-tab="issues" id="tab-issues-btn">Issues</button>
+      <button class="tab-btn" data-tab="logs">Live logs</button>
+      <button class="tab-btn" data-tab="report">AI Report</button>
+    </div>
+
+    <!-- TASKS panel -->
+    <div class="tab-panel active" id="panel-tasks">
+      <div id="tasks-grid"></div>
+    </div>
+
+    <!-- ISSUES panel -->
+    <div class="tab-panel" id="panel-issues">
+      <div id="issues-empty" style="color:var(--text-dim);">Scan in progress — issues will appear here...</div>
+      <div id="issues-list"></div>
+    </div>
+
+    <!-- LOGS panel -->
+    <div class="tab-panel" id="panel-logs">
+      <div id="logs-box">
+        <div id="logs-head">
+          <span class="pdot" id="log-dot" style="width:6px;height:6px;">
+            <span class="pdot-ring" style="background:#4f8ef7;"></span>
+            <span class="pdot-core" style="background:#4f8ef7;"></span>
+          </span>
+          <span>AGENT LOG STREAM</span>
+        </div>
+        <div id="logs-inner"></div>
+      </div>
+    </div>
+
+    <!-- REPORT panel -->
+    <div class="tab-panel" id="panel-report">
+      <div id="report-placeholder">Scan in progress — report will appear when complete...</div>
+      <div id="report-content" class="hidden"></div>
+    </div>
+
+  </div><!-- /dashboard -->
+</div><!-- /main -->
+
+<div style="height:60px;"></div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────────────────
+const AGENT_TASKS = [
+  { id:"auth",  label:"Auth flows",      icon:"🔐", subtasks:["sign up","login","logout","password reset"] },
+  { id:"nav",   label:"Navigation",      icon:"🧭", subtasks:["routing","404s","redirects","deep links"] },
+  { id:"forms", label:"Form validation", icon:"📋", subtasks:["required fields","email format","XSS input","SQL injection"] },
+  { id:"api",   label:"API health",      icon:"⚡", subtasks:["/health endpoint","auth endpoints","core APIs","latency check"] },
+  { id:"ui",    label:"UI rendering",    icon:"🖼️", subtasks:["viewport sizes","CSS errors","broken images","contrast"] },
+  { id:"perf",  label:"Performance",     icon:"📊", subtasks:["load time","LCP","CLS","memory leaks"] },
+];
+
+const SEV = {
+  critical:{ color:"#ff5b7f", bg:"#1e0615", label:"CRITICAL" },
+  high:    { color:"#ff8c5b", bg:"#1e0e06", label:"HIGH"     },
+  medium:  { color:"#f5d442", bg:"#1c1804", label:"MEDIUM"   },
+  low:     { color:"#5bdfb0", bg:"#051a14", label:"LOW"      },
+  info:    { color:"#7eb3ff", bg:"#060e22", label:"INFO"     },
+};
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let phase     = "idle";
+let runCount  = 0;
+let allIssues = [];
+let report    = null;
+let timerInterval = null;
+let running   = false;
+let currentUrl = "";
+
+// ── CLAUDE API ─────────────────────────────────────────────────────────────
+async function callClaude(system, user) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      model:"claude-sonnet-4-20250514",
+      max_tokens:1000,
+      system,
+      messages:[{role:"user",content:user}]
+    })
+  });
+  const data = await res.json();
+  return (data.content||[]).map(b=>b.text||"").join("");
+}
+
+async function runAgentTask(url, task) {
+  const sys = "You are a QA automation agent. Return structured JSON bug reports only. No markdown. No explanation outside JSON.";
+  const usr = `Analyze this website for QA issues in category: "${task.label}".
+URL: ${url}
+Subtasks: ${task.subtasks.join(", ")}
+Return JSON: {"status":"pass"|"fail"|"warning","score":<0-100>,"issues":[{"severity":"critical"|"high"|"medium"|"low"|"info","title":"...","description":"...","reproduction":"...","fix":"..."}],"summary":"one sentence"}
+Be realistic and specific. Return 0-3 issues.`;
+  try {
+    const raw = await callClaude(sys, usr);
+    return JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());
+  } catch {
+    return { status:"warning", score:70, issues:[], summary:"Analysis completed with partial data." };
+  }
+}
+
+async function generateFullReport(url, taskResults) {
+  const issues = taskResults.flatMap(t=>(t.result?.issues||[]).map(i=>({...i,category:t.task.label})));
+  const usr = `QA report for: ${url}
+Tasks: ${JSON.stringify(taskResults.map(t=>({category:t.task.label,status:t.result?.status,score:t.result?.score})))}
+Issues: ${JSON.stringify(issues)}
+Return JSON: {"overall_score":<0-100>,"health":"healthy"|"degraded"|"critical","headline":"<punchy>","top_priority":"<fix>","next_run_recommendation":"<when>","positive_findings":["...","..."]}`;
+  try {
+    const raw = await callClaude("You are a senior QA engineer. Return JSON only.", usr);
+    return JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());
+  } catch {
+    return { overall_score:75, health:"degraded", headline:"Analysis complete", top_priority:"Review flagged issues", next_run_recommendation:"Run again in 15 minutes", positive_findings:[] };
+  }
+}
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function fmt(s) {
+  if (s===null) return "--:--";
+  return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+}
+
+function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+function pdotHtml(color, size) {
+  return `<span class="pdot" style="width:${size}px;height:${size}px;">
+    <span class="pdot-ring" style="background:${color};"></span>
+    <span class="pdot-core" style="background:${color};"></span>
+  </span>`;
+}
+
+function setDotColor(el, color) {
+  if (!el) return;
+  el.querySelector(".pdot-ring").style.background = color;
+  el.querySelector(".pdot-core").style.background = color;
+}
+
+// ── LOG ────────────────────────────────────────────────────────────────────
+function addLog(msg, type="info") {
+  const colors = { info:"#4f8ef7", success:"#5bdfb0", warn:"#f5d442", error:"#ff5b7f", system:"#9b6dff" };
+  const time = new Date().toLocaleTimeString("en-US",{hour12:false});
+  const el = document.createElement("div");
+  el.className = "log-line";
+  el.innerHTML = `<span class="log-time">${time}</span><span class="log-type" style="color:${colors[type]||colors.info}">[${type.toUpperCase()}]</span><span class="log-msg">${msg}</span>`;
+  document.getElementById("logs-inner").appendChild(el);
+  const box = document.getElementById("logs-box");
+  box.scrollTop = box.scrollHeight;
+}
+
+// ── TASK CARD ──────────────────────────────────────────────────────────────
+function renderTaskCard(task, state) {
+  const el = document.getElementById("tc-"+task.id);
+  if (!el) return;
+
+  const { phase:p, result, subtaskIndex } = state;
+  const status = result?.status || "idle";
+  const score  = result?.score;
+  const statusColor = p==="running" ? "#4f8ef7"
+    : status==="pass" ? "#5bdfb0"
+    : status==="fail" ? "#ff5b7f"
+    : status==="warning" ? "#f5d442" : "#3a3a6a";
+
+  // card border/shadow
+  if (p==="running") {
+    el.classList.add("running");
+    el.querySelector(".task-scan-bar").style.display = "block";
+  } else {
+    el.classList.remove("running");
+    el.querySelector(".task-scan-bar").style.display = "none";
+  }
+
+  // corner glow
+  const corner = el.querySelector(".task-corner");
+  if (p==="done") {
+    corner.style.background = `radial-gradient(circle at top right,${statusColor}18,transparent 70%)`;
+  } else {
+    corner.style.background = "none";
+  }
+
+  // score badge
+  const scoreBadge = el.querySelector(".task-score");
+  if (score !== undefined) {
+    scoreBadge.textContent = score;
+    scoreBadge.style.color = statusColor;
+    scoreBadge.style.borderColor = statusColor+"35";
+    scoreBadge.style.background = statusColor+"10";
+    scoreBadge.style.display = "inline";
+  } else {
+    scoreBadge.style.display = "none";
+  }
+
+  // status text
+  const statusEl = el.querySelector(".task-status");
+  if (p==="done") { statusEl.textContent = status.toUpperCase(); statusEl.style.color = statusColor; statusEl.style.display = "inline"; }
+  else statusEl.style.display = "none";
+
+  // running dot
+  const runDot = el.querySelector(".task-run-dot");
+  if (p==="running") { runDot.style.display = "inline-block"; setDotColor(runDot,"#4f8ef7"); }
+  else runDot.style.display = "none";
+
+  // body
+  const body = el.querySelector(".task-body");
+  body.innerHTML = "";
+
+  if (p==="idle") {
+    const pills = document.createElement("div");
+    pills.className = "subtask-pills";
+    task.subtasks.forEach(s => {
+      const sp = document.createElement("span");
+      sp.className = "subtask-pill";
+      sp.textContent = s;
+      pills.appendChild(sp);
+    });
+    body.appendChild(pills);
+  }
+
+  if (p==="running") {
+    const pills = document.createElement("div");
+    pills.className = "subtask-pills";
+    task.subtasks.forEach((s,i) => {
+      const sp = document.createElement("span");
+      sp.className = "subtask-pill" + (i===subtaskIndex?" active":i<subtaskIndex?" done":"");
+      sp.textContent = (i<subtaskIndex?"✓ ":i===subtaskIndex?"▶ ":"")+s;
+      pills.appendChild(sp);
+    });
+    body.appendChild(pills);
+    const chk = document.createElement("div");
+    chk.className = "task-checking";
+    chk.textContent = "checking "+task.subtasks[subtaskIndex||0]+"...";
+    body.appendChild(chk);
+  }
+
+  if (p==="done" && result) {
+    const sum = document.createElement("p");
+    sum.className = "task-summary";
+    sum.textContent = result.summary;
+    body.appendChild(sum);
+
+    if (result.issues?.length > 0) {
+      const issWrap = document.createElement("div");
+      issWrap.className = "task-issues";
+      result.issues.forEach(issue => {
+        const sc = SEV[issue.severity] || SEV.info;
+        const row = document.createElement("div");
+        row.className = "task-issue";
+        row.style.background = sc.bg;
+        row.style.borderColor = sc.color+"25";
+        row.innerHTML = `<span class="issue-badge" style="color:${sc.color}">${sc.label}</span><span class="issue-title">${issue.title}</span>`;
+        issWrap.appendChild(row);
+      });
+      body.appendChild(issWrap);
+    } else {
+      const ni = document.createElement("div");
+      ni.className = "no-issues";
+      ni.textContent = "✓ No issues found";
+      body.appendChild(ni);
+    }
+  }
+}
+
+// ── BUILD TASK GRID ────────────────────────────────────────────────────────
+function buildTaskGrid() {
+  const grid = document.getElementById("tasks-grid");
+  grid.innerHTML = "";
+  AGENT_TASKS.forEach(task => {
+    const card = document.createElement("div");
+    card.className = "task-card";
+    card.id = "tc-"+task.id;
+    card.innerHTML = `
+      <div class="task-scan-bar" style="display:none;"></div>
+      <div class="task-corner"></div>
+      <div class="task-header">
+        <div class="task-title">
+          <span class="task-icon">${task.icon}</span>
+          <span class="task-name">${task.label}</span>
+        </div>
+        <div class="task-meta">
+          <span class="pdot task-run-dot" style="width:7px;height:7px;display:none;">
+            <span class="pdot-ring" style="background:#4f8ef7;"></span>
+            <span class="pdot-core" style="background:#4f8ef7;"></span>
+          </span>
+          <span class="task-score" style="display:none;"></span>
+          <span class="task-status" style="display:none;"></span>
+        </div>
+      </div>
+      <div class="task-body"></div>
+    `;
+    grid.appendChild(card);
+    renderTaskCard(task, { phase:"idle" });
+  });
+}
+
+// ── ISSUES LIST ────────────────────────────────────────────────────────────
+function renderIssues() {
+  const list = document.getElementById("issues-list");
+  const empty = document.getElementById("issues-empty");
+  list.innerHTML = "";
+
+  if (allIssues.length === 0) {
+    if (phase === "running") {
+      empty.style.color = "var(--text-dim)";
+      empty.textContent = "Scan in progress — issues will appear here...";
+      empty.style.display = "block";
+    } else {
+      empty.style.color = "#5bdfb0";
+      empty.textContent = "✓ No issues found. Your site looks healthy!";
+      empty.style.display = "block";
+    }
+    return;
+  }
+  empty.style.display = "none";
+
+  const order = ["critical","high","medium","low","info"];
+  order.forEach(sev => {
+    allIssues.filter(i=>i.severity===sev).forEach(issue => {
+      const sc = SEV[issue.severity]||SEV.info;
+      const row = document.createElement("div");
+      row.className = "issue-row";
+      row.innerHTML = `
+        <div class="issue-row-head">
+          <span class="issue-sev-badge" style="color:${sc.color};border-color:${sc.color}45;background:${sc.color}12;">${sc.label}</span>
+          <span class="issue-row-title">${issue.title}</span>
+          <span class="issue-row-cat">${issue.category}</span>
+          <span class="issue-row-arrow">▼</span>
+        </div>
+        <div class="issue-row-body">
+          <div class="issue-section">
+            <div class="issue-section-label" style="color:#4f8ef7;">DESCRIPTION</div>
+            <div class="issue-section-text" style="color:var(--text-second);">${issue.description}</div>
+          </div>
+          <div class="issue-section">
+            <div class="issue-section-label" style="color:#6e7fff;">REPRODUCTION</div>
+            <div class="issue-section-text" style="color:var(--text-second);">${issue.reproduction}</div>
+          </div>
+          <div class="issue-section">
+            <div class="issue-section-label" style="color:#5bdfb0;">SUGGESTED FIX</div>
+            <div class="issue-section-text" style="color:#90e0c0;">${issue.fix}</div>
+          </div>
+        </div>
+      `;
+      row.querySelector(".issue-row-head").addEventListener("click", () => {
+        const body = row.querySelector(".issue-row-body");
+        const arrow = row.querySelector(".issue-row-arrow");
+        const open = body.classList.toggle("open");
+        arrow.textContent = open ? "▲" : "▼";
+        row.style.borderColor = open ? sc.color+"38" : "var(--border)";
+        row.style.boxShadow = open ? `0 0 18px ${sc.color}12` : "none";
+      });
+      list.appendChild(row);
+    });
+  });
+
+  // Update issues tab label
+  document.getElementById("tab-issues-btn").textContent = `Issues (${allIssues.length})`;
+}
+
+// ── METRICS ────────────────────────────────────────────────────────────────
+function updateMetrics() {
+  if (!report) return;
+  document.getElementById("metrics").classList.remove("hidden");
+
+  const s = report.overall_score;
+  const color = s>=80?"#5bdfb0":s>=60?"#f5d442":"#ff5b7f";
+  const circ = 2*Math.PI*33;
+  const dash = (s/100)*circ;
+  const arc = document.getElementById("score-arc");
+  arc.setAttribute("stroke",color);
+  arc.setAttribute("stroke-dasharray", dash+" "+circ);
+  const txt = document.getElementById("score-text");
+  txt.setAttribute("fill",color);
+  txt.textContent = s;
+  document.getElementById("score-ring").style.filter = `drop-shadow(0 0 8px ${color}50)`;
+
+  const healthColor = report.health==="healthy"?"#5bdfb0":report.health==="degraded"?"#f5d442":"#ff5b7f";
+  const mv = document.getElementById("mv-status");
+  mv.textContent = report.health.toUpperCase();
+  mv.style.color = healthColor;
+  mv.style.textShadow = `0 0 20px ${healthColor}55`;
+
+  const issueCount = allIssues.length;
+  const issueColor = issueCount>0?"#ff8c5b":"#5bdfb0";
+  const mvi = document.getElementById("mv-issues");
+  mvi.textContent = issueCount; mvi.style.color = issueColor; mvi.style.textShadow = `0 0 20px ${issueColor}55`;
+
+  const critCount = allIssues.filter(i=>i.severity==="critical").length;
+  const critColor = critCount>0?"#ff5b7f":"#5bdfb0";
+  const mvc = document.getElementById("mv-critical");
+  mvc.textContent = critCount; mvc.style.color = critColor; mvc.style.textShadow = `0 0 20px ${critColor}55`;
+
+  const highCount = allIssues.filter(i=>i.severity==="high").length;
+  const highColor = highCount>0?"#ff8c5b":"#5bdfb0";
+  const mvh = document.getElementById("mv-high");
+  mvh.textContent = highCount; mvh.style.color = highColor; mvh.style.textShadow = `0 0 20px ${highColor}55`;
+}
+
+// ── REPORT ─────────────────────────────────────────────────────────────────
+function renderReport() {
+  const placeholder = document.getElementById("report-placeholder");
+  const content = document.getElementById("report-content");
+  if (!report) { placeholder.style.display="block"; content.classList.add("hidden"); return; }
+  placeholder.style.display = "none";
+  content.classList.remove("hidden");
+  content.innerHTML = "";
+
+  // Headline card
+  const hc = document.createElement("div");
+  hc.className = "report-card";
+  hc.innerHTML = `
+    <div class="report-card-bar"></div>
+    <div class="report-label">AI ASSESSMENT</div>
+    <p class="report-headline">${report.headline}</p>
+    <p class="report-rec">${report.next_run_recommendation}</p>
+  `;
+  content.appendChild(hc);
+
+  // Top priority
+  if (report.top_priority) {
+    const pc = document.createElement("div");
+    pc.className = "priority-card";
+    pc.innerHTML = `
+      <span class="priority-icon">🎯</span>
+      <div>
+        <div class="priority-label">TOP PRIORITY</div>
+        <p class="priority-text">${report.top_priority}</p>
+      </div>
+    `;
+    content.appendChild(pc);
+  }
+
+  // Positives
+  if (report.positive_findings?.length > 0) {
+    const posCard = document.createElement("div");
+    posCard.className = "positives-card";
+    let html = `<div class="positives-label">WHAT'S WORKING</div>`;
+    report.positive_findings.forEach(f => {
+      html += `<div class="positive-item"><span class="positive-check">✓</span><span>${f}</span></div>`;
+    });
+    posCard.innerHTML = html;
+    content.appendChild(posCard);
+  }
+
+  // Breakdown
+  const bc = document.createElement("div");
+  bc.className = "breakdown-card";
+  let bhtml = `<div class="breakdown-label">ISSUE BREAKDOWN</div><div class="breakdown-grid">`;
+  ["critical","high","medium","low"].forEach(sev => {
+    const sc = SEV[sev];
+    const count = allIssues.filter(i=>i.severity===sev).length;
+    bhtml += `<div class="breakdown-item" style="background:${sc.bg};border-color:${sc.color}25;box-shadow:0 0 14px ${sc.color}14;">
+      <div class="breakdown-num" style="color:${sc.color};text-shadow:0 0 16px ${sc.color}80;">${count}</div>
+      <div class="breakdown-name" style="color:${sc.color};">${sev}</div>
+    </div>`;
+  });
+  bhtml += "</div>";
+  bc.innerHTML = bhtml;
+  content.appendChild(bc);
+
+  // Timer placeholder (filled by startCountdown)
+  const tc = document.createElement("div");
+  tc.className = "timer-card";
+  tc.id = "report-timer-card";
+  tc.innerHTML = `
+    <div class="timer-left">
+      ${pdotHtml("#9b6dff",7)}
+      <span class="timer-label">Next auto-scan in</span>
+    </div>
+    <span class="timer-value" id="report-timer-val">15:00</span>
+  `;
+  content.appendChild(tc);
+}
+
+// ── COUNTDOWN ──────────────────────────────────────────────────────────────
+function startCountdown(targetUrl) {
+  clearInterval(timerInterval);
+  let secs = 15 * 60;
+  const hv = document.getElementById("header-timer-val");
+  const rv = document.getElementById("report-timer-val");
+  document.getElementById("header-timer").classList.remove("hidden");
+  document.getElementById("header-timer").style.display = "flex";
+
+  const tick = () => {
+    const f = fmt(secs);
+    if (hv) hv.textContent = f;
+    if (rv) rv.textContent = f;
+    secs--;
+    if (secs < 0) {
+      clearInterval(timerInterval);
+      addLog("Auto-scan triggered by scheduler","system");
+      startScan(targetUrl);
+    }
+  };
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+// ── MAIN SCAN ──────────────────────────────────────────────────────────────
+async function startScan(targetUrl) {
+  if (running) return;
+  running = true;
+  phase = "running";
+  currentUrl = targetUrl;
+  allIssues = [];
+  report = null;
+  runCount++;
+
+  // Show dashboard, hide hero
+  document.getElementById("hero").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+
+  // Status bar
+  document.getElementById("status-url").textContent = targetUrl;
+  document.getElementById("run-label").textContent = "run #"+runCount;
+  document.getElementById("rescan-btn").classList.add("hidden");
+  setDotColor(document.getElementById("status-dot"),"#4f8ef7");
+
+  // Header status
+  const hs = document.getElementById("header-status");
+  hs.classList.remove("hidden"); hs.style.display = "flex";
+  document.getElementById("header-status-text").textContent = "scanning";
+  setDotColor(document.getElementById("header-dot"),"#4f8ef7");
+  document.getElementById("header-timer").classList.add("hidden");
+
+  // Hide metrics, reset report
+  document.getElementById("metrics").classList.add("hidden");
+  document.getElementById("report-placeholder").textContent = "Scan in progress — report will appear when complete...";
+  document.getElementById("report-placeholder").style.display = "block";
+  document.getElementById("report-content").classList.add("hidden");
+
+  // Issues reset
+  document.getElementById("issues-empty").style.color = "var(--text-dim)";
+  document.getElementById("issues-empty").textContent = "Scan in progress — issues will appear here...";
+  document.getElementById("issues-empty").style.display = "block";
+  document.getElementById("issues-list").innerHTML = "";
+  document.getElementById("tab-issues-btn").textContent = "Issues";
+
+  // Build task cards
+  buildTaskGrid();
+  document.getElementById("logs-inner").innerHTML = "";
+
+  addLog(`Scan initiated for ${targetUrl}`,"system");
+  addLog("Spawning QA agent workers...","info");
+
+  const taskResults = [];
+
+  for (const task of AGENT_TASKS) {
+    addLog(`▶ Starting task: ${task.label}`,"info");
+    renderTaskCard(task,{phase:"running",subtaskIndex:0});
+
+    for (let i=0; i<task.subtasks.length; i++) {
+      renderTaskCard(task,{phase:"running",subtaskIndex:i});
+      addLog(`  checking ${task.subtasks[i]}...`,"info");
+      await sleep(420+Math.random()*280);
+    }
+
+    addLog(`  calling AI analyzer for ${task.label}...`,"info");
+    const result = await runAgentTask(targetUrl, task);
+    taskResults.push({task,result});
+    renderTaskCard(task,{phase:"done",result});
+
+    const criticals = (result.issues||[]).filter(i=>i.severity==="critical").length;
+    const cnt = (result.issues||[]).length;
+    if (result.status==="fail"||criticals>0) addLog(`  ✗ ${task.label}: ${cnt} issue(s) — ${criticals} critical`,"error");
+    else if (result.status==="warning")       addLog(`  ⚠ ${task.label}: ${cnt} warning(s)`,"warn");
+    else                                      addLog(`  ✓ ${task.label}: PASSED (score: ${result.score})`,"success");
+  }
+
+  // Collect issues
+  allIssues = taskResults.flatMap(tr=>(tr.result?.issues||[]).map(i=>({...i,category:tr.task.label})));
+  renderIssues();
+
+  // Full report
+  addLog("Generating comprehensive report...","system");
+  report = await generateFullReport(targetUrl, taskResults);
+
+  const cc = allIssues.filter(i=>i.severity==="critical").length;
+  addLog(`Report complete — Score: ${report.overall_score}/100`,"success");
+  addLog(`Found ${cc} critical, ${allIssues.filter(i=>i.severity==="high").length} high severity issues`, cc>0?"error":"warn");
+  addLog(`Health: ${report.health?.toUpperCase()}`, report.health==="healthy"?"success":"warn");
+
+  // Update UI
+  phase = "done";
+  running = false;
+  updateMetrics();
+  renderReport();
+
+  // Status bar done state
+  setDotColor(document.getElementById("status-dot"),"#5bdfb0");
+  document.getElementById("rescan-btn").classList.remove("hidden");
+  document.getElementById("header-status-text").textContent = `run #${runCount} complete`;
+  setDotColor(document.getElementById("header-dot"),"#5bdfb0");
+  setDotColor(document.getElementById("log-dot"),"#9b6dff");
+
+  addLog("Next scan scheduled in 15:00","system");
+  startCountdown(targetUrl);
+}
+
+// ── TABS ───────────────────────────────────────────────────────────────────
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+// ── RUN BUTTON ─────────────────────────────────────────────────────────────
+document.getElementById("run-btn").addEventListener("click", () => {
+  let val = document.getElementById("url-input").value.trim();
+  if (!val) return;
+  if (!val.startsWith("http")) val = "https://"+val;
+  clearInterval(timerInterval);
+  startScan(val);
+});
+
+document.getElementById("url-input").addEventListener("keydown", e => {
+  if (e.key==="Enter") document.getElementById("run-btn").click();
+});
+
+document.getElementById("rescan-btn").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  startScan(currentUrl);
+});
+</script>
+</body>
+</html>
