@@ -170,6 +170,44 @@
   .timer-left{display:flex;align-items:center;gap:10px}
   .timer-label{font-size:12px;color:var(--text-second)}
   .timer-value{font-size:22px;font-family:var(--syne);font-weight:700;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+  /* FIX PROMPTS */
+  #fix-content{display:flex;flex-direction:column;gap:16px;animation:fadeIn .4s ease}
+  .fix-header{background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(155,109,255,.08));border:1px solid rgba(155,109,255,.25);border-radius:14px;padding:20px 24px;position:relative;overflow:hidden}
+  .fix-header-bar{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4f8ef7,#9b6dff,#c4a0ff)}
+  .fix-header-title{font-family:var(--syne);font-weight:700;font-size:15px;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+  .fix-header-sub{font-size:11px;color:var(--text-second);line-height:1.6}
+  .fix-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:700px){.fix-cards{grid-template-columns:1fr}}
+  .fix-card{border-radius:14px;border:1px solid var(--border);overflow:hidden}
+  .fix-card-claude{border-color:rgba(155,109,255,.3)}
+  .fix-card-gpt{border-color:rgba(16,163,127,.3)}
+  .fix-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .fix-card-claude .fix-card-head{background:linear-gradient(135deg,rgba(155,109,255,.1),rgba(79,142,247,.1))}
+  .fix-card-gpt .fix-card-head{background:linear-gradient(135deg,rgba(16,163,127,.1),rgba(16,163,127,.05))}
+  .fix-card-label{display:flex;align-items:center;gap:10px}
+  .fix-card-logo{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .fix-card-claude .fix-card-logo{background:rgba(155,109,255,.2);color:#c4a0ff}
+  .fix-card-gpt .fix-card-logo{background:rgba(16,163,127,.2);color:#10a37f}
+  .fix-card-name{font-family:var(--syne);font-weight:700;font-size:13px}
+  .fix-card-claude .fix-card-name{color:#c4a0ff}
+  .fix-card-gpt .fix-card-name{color:#10a37f}
+  .fix-card-desc{font-size:10px;color:var(--text-dim);margin-top:2px}
+  .fix-copy-btn{font-size:11px;font-family:var(--mono);padding:6px 14px;border-radius:7px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+  .fix-card-claude .fix-copy-btn{background:rgba(155,109,255,.2);color:#c4a0ff;border:1px solid rgba(155,109,255,.3)}
+  .fix-card-claude .fix-copy-btn:hover{background:rgba(155,109,255,.35)}
+  .fix-card-gpt .fix-copy-btn{background:rgba(16,163,127,.2);color:#10a37f;border:1px solid rgba(16,163,127,.3)}
+  .fix-card-gpt .fix-copy-btn:hover{background:rgba(16,163,127,.35)}
+  .fix-copy-btn.copied{opacity:.6}
+  .fix-prompt-box{padding:16px 18px;background:var(--bg0);max-height:320px;overflow-y:auto;font-size:11px;color:var(--text-second);line-height:1.7;white-space:pre-wrap;word-break:break-word;border-top:1px solid var(--border)}
+  .fix-open-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:var(--bg2);font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .2s;border-top:1px solid var(--border);border:none;width:100%;color:var(--text-second)}
+  .fix-card-claude .fix-open-btn:hover{background:rgba(155,109,255,.08);color:#c4a0ff}
+  .fix-card-gpt .fix-open-btn:hover{background:rgba(16,163,127,.08);color:#10a37f}
+  .fix-generating{display:flex;align-items:center;justify-content:center;gap:12px;padding:40px;color:var(--text-second);font-size:12px}
+  .fix-issue-summary{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 18px}
+  .fix-issue-summary-title{font-size:10px;color:var(--text-dim);letter-spacing:.1em;margin-bottom:10px}
+  .fix-issue-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:11px;border-bottom:1px solid #1a1a2a}
+  .fix-issue-row:last-child{border-bottom:none}
   #error-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e0615;border:1px solid #ff5b7f40;color:#ff9bb8;padding:12px 24px;border-radius:10px;font-size:12px;z-index:999;display:none;animation:fadeIn .3s ease;max-width:500px;text-align:center}
   .hidden{display:none !important}
 </style>
@@ -260,6 +298,7 @@
       <button class="tab-btn" data-tab="issues" id="tab-issues-btn">Issues</button>
       <button class="tab-btn" data-tab="logs">Live logs</button>
       <button class="tab-btn" data-tab="report">AI Report</button>
+      <button class="tab-btn" id="tab-fix-btn" data-tab="fix" style="color:#c4a0ff;border-color:rgba(155,109,255,.25);">✦ Fix Prompts</button>
     </div>
     <div class="tab-panel active" id="panel-tasks"><div id="tasks-grid"></div></div>
     <div class="tab-panel" id="panel-raw"><div id="raw-box"></div></div>
@@ -279,6 +318,10 @@
     <div class="tab-panel" id="panel-report">
       <div id="report-placeholder">Scan in progress — report will appear when complete...</div>
       <div id="report-content" class="hidden"></div>
+    </div>
+    <div class="tab-panel" id="panel-fix">
+      <div id="fix-placeholder" style="color:var(--text-dim);font-size:13px;text-align:center;padding:60px;">Complete a scan to generate fix prompts.</div>
+      <div id="fix-content" class="hidden"></div>
     </div>
   </div>
 </div>
@@ -668,6 +711,8 @@ async function startScan(targetUrl,mode){
   document.getElementById("issues-empty").style.display="block";
   document.getElementById("issues-list").innerHTML="";
   document.getElementById("tab-issues-btn").textContent="Issues";
+  document.getElementById("fix-placeholder").style.display="block";document.getElementById("fix-content").classList.add("hidden");document.getElementById("fix-content").innerHTML="";
+  document.getElementById("tab-fix-btn").style.color="#c4a0ff";
   document.getElementById("raw-box").innerHTML=`<div style="color:var(--text-dim);text-align:center;padding:40px;">Fetching real site data...</div>`;
   buildTaskGrid();document.getElementById("logs-inner").innerHTML="";
 
@@ -736,7 +781,294 @@ async function startScan(targetUrl,mode){
   startCountdown(targetUrl);
 }
 
-document.querySelectorAll(".tab-btn").forEach(btn=>{btn.addEventListener("click",()=>{document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");document.getElementById("panel-"+btn.dataset.tab).classList.add("active");});});
+
+// ═══════════════════════════════════════════════════════════════
+// FIX PROMPT GENERATION
+// ═══════════════════════════════════════════════════════════════
+function buildFixContext() {
+  const issues = allIssues;
+  const findings = staticFindings;
+  const data = siteData;
+  const headers = data?.headers || {};
+
+  const issuesByCategory = {};
+  issues.forEach(i => {
+    if (!issuesByCategory[i.category]) issuesByCategory[i.category] = [];
+    issuesByCategory[i.category].push(i);
+  });
+
+  const failedStatic = findings.filter(f => !f.pass);
+  const passedStatic = findings.filter(f => f.pass);
+
+  const context = {
+    url: currentUrl,
+    score: report?.overall_score || 0,
+    health: report?.health || "unknown",
+    mode: currentMode,
+    httpStatus: data?.status,
+    responseTime: data?.responseTime,
+    https: data?.url?.startsWith("https"),
+    securityHeaders: {
+      hsts: !!headers["strict-transport-security"],
+      csp: !!headers["content-security-policy"],
+      xFrameOptions: !!headers["x-frame-options"],
+      xContentType: !!headers["x-content-type-options"],
+      referrerPolicy: !!headers["referrer-policy"],
+      permissionsPolicy: !!headers["permissions-policy"],
+    },
+    robotsTxt: data?.robotsTxt,
+    sitemapXml: data?.sitemapXml,
+    totalIssues: issues.length,
+    criticalCount: issues.filter(i => i.severity === "critical").length,
+    highCount: issues.filter(i => i.severity === "high").length,
+    issuesByCategory,
+    failedChecks: failedStatic.map(f => ({ check: f.check, value: f.value, detail: f.detail })),
+    passedChecks: passedStatic.map(f => f.check),
+  };
+
+  return context;
+}
+
+function buildClaudePrompt(ctx) {
+  const issueLines = Object.entries(ctx.issuesByCategory).map(([cat, issues]) => {
+    return `\n### ${cat}\n` + issues.map(i =>
+      `- [${i.severity.toUpperCase()}] ${i.title}\n  Problem: ${i.description}\n  Fix: ${i.fix}`
+    ).join("\n");
+  }).join("\n");
+
+  const failedLines = ctx.failedChecks.map(f =>
+    `- ${f.check}: ${f.detail} (current value: ${f.value})`
+  ).join("\n");
+
+  return `<context>
+You are reviewing a QA audit of ${ctx.url}. The site currently scores ${ctx.score}/100 (${ctx.health}). Your job is to produce exact, production-ready fixes that will bring the score to 100/100.
+</context>
+
+<audit_results>
+URL: ${ctx.url}
+Current score: ${ctx.score}/100
+Health: ${ctx.health}
+HTTP status: ${ctx.httpStatus} | Response time: ${ctx.responseTime}ms
+HTTPS: ${ctx.https ? "✓ enabled" : "✗ NOT enabled — critical"}
+Total issues: ${ctx.totalIssues} (${ctx.criticalCount} critical, ${ctx.highCount} high)
+
+Security headers status:
+- HSTS: ${ctx.securityHeaders.hsts ? "✓ present" : "✗ MISSING"}
+- CSP: ${ctx.securityHeaders.csp ? "✓ present" : "✗ MISSING"}
+- X-Frame-Options: ${ctx.securityHeaders.xFrameOptions ? "✓ present" : "✗ MISSING"}
+- X-Content-Type-Options: ${ctx.securityHeaders.xContentType ? "✓ present" : "✗ MISSING"}
+- Referrer-Policy: ${ctx.securityHeaders.referrerPolicy ? "✓ present" : "✗ MISSING"}
+- Permissions-Policy: ${ctx.securityHeaders.permissionsPolicy ? "✓ present" : "✗ MISSING"}
+
+robots.txt: ${ctx.robotsTxt ? "✓ found" : "✗ missing"}
+sitemap.xml: ${ctx.sitemapXml ? "✓ found" : "✗ missing"}
+</audit_results>
+
+<issues_to_fix>
+${issueLines}
+</issues_to_fix>
+
+<static_analysis_failures>
+${failedLines || "None"}
+</static_analysis_failures>
+
+<passing_checks>
+${ctx.passedChecks.join(", ") || "None"}
+</passing_checks>
+
+<instructions>
+For EACH issue above, provide the exact fix. Format your response as:
+
+## Fix 1: [Issue Title]
+**Why it matters:** [one sentence]
+**Exact fix:**
+\`\`\`[language]
+[production-ready code or configuration]
+\`\`\`
+**Verification:** How to confirm this fix brings this check to 100%
+
+After all fixes, provide:
+## Complete <head> section
+A fully corrected <head> block incorporating all meta, SEO, and security fixes.
+
+## Server configuration
+Any required server headers (nginx/Apache/Netlify/Vercel config) to add missing security headers.
+
+The goal is a site that scores 100/100 when re-scanned by ShieldQA. Be exact. No placeholders. Real values where possible.
+</instructions>`;
+}
+
+function buildGPTPrompt(ctx) {
+  const issueLines = Object.entries(ctx.issuesByCategory).map(([cat, issues]) => {
+    return `\n**${cat}**\n` + issues.map(i =>
+      `• [${i.severity.toUpperCase()}] ${i.title}: ${i.description}`
+    ).join("\n");
+  }).join("\n");
+
+  const failedLines = ctx.failedChecks.map(f =>
+    `• ${f.check}: ${f.detail}`
+  ).join("\n");
+
+  return `You are a web developer helping fix a website that scored ${ctx.score}/100 on a QA audit. I need you to fix every issue so it scores 100/100.
+
+**Site:** ${ctx.url}
+**Current Score:** ${ctx.score}/100 | Health: ${ctx.health}
+**Total Issues:** ${ctx.totalIssues} (${ctx.criticalCount} critical, ${ctx.highCount} high)
+
+---
+
+**ISSUES FOUND:**
+${issueLines}
+
+---
+
+**FAILED STATIC CHECKS:**
+${failedLines || "None"}
+
+---
+
+**SECURITY HEADERS STATUS:**
+${Object.entries(ctx.securityHeaders).map(([k, v]) => `• ${k}: ${v ? "✓ OK" : "✗ MISSING — needs to be added"}`).join("\n")}
+
+**Other:**
+• robots.txt: ${ctx.robotsTxt ? "✓ exists" : "✗ missing — needs to be created"}
+• sitemap.xml: ${ctx.sitemapXml ? "✓ exists" : "✗ missing — needs to be created"}
+
+---
+
+**WHAT I NEED FROM YOU:**
+
+For each issue, give me:
+1. The exact code fix (no placeholders, real values)
+2. Where in the codebase to put it
+3. How to verify it's fixed
+
+Then provide:
+- A complete corrected \`<head>\` section with all SEO, meta, and social tags fixed
+- The exact server config (nginx / Apache / Netlify \`_headers\` file / \`netlify.toml\` / \`vercel.json\`) to add all missing security headers
+- A corrected \`robots.txt\` and \`sitemap.xml\` if missing
+
+Be specific. Use real code. The goal is a 100/100 rescan.`;
+}
+
+async function generateFixPrompts() {
+  const fixContent = document.getElementById("fix-content");
+  const fixPlaceholder = document.getElementById("fix-placeholder");
+
+  fixPlaceholder.style.display = "none";
+  fixContent.classList.remove("hidden");
+  fixContent.innerHTML = `<div class="fix-generating">${pdotHtml("#9b6dff", 8)}<span>Building fix prompts from scan data...</span></div>`;
+
+  // Switch to fix tab
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("tab-fix-btn").classList.add("active");
+  document.getElementById("panel-fix").classList.add("active");
+
+  await new Promise(r => setTimeout(r, 400));
+
+  const ctx = buildFixContext();
+  const claudePrompt = buildClaudePrompt(ctx);
+  const gptPrompt = buildGPTPrompt(ctx);
+
+  const severityColor = { critical: "#ff5b7f", high: "#ff8c5b", medium: "#f5d442", low: "#5bdfb0", info: "#7eb3ff" };
+
+  fixContent.innerHTML = `
+    <div class="fix-header">
+      <div class="fix-header-bar"></div>
+      <div class="fix-header-title">Fix Prompts — ${ctx.totalIssues} issues · Score ${ctx.score}/100</div>
+      <div class="fix-header-sub">
+        Copy either prompt below and paste it directly into Claude or ChatGPT. Each prompt contains your full audit results and exact instructions to return production-ready fixes that bring your site to 100/100.
+      </div>
+    </div>
+
+    <div class="fix-issue-summary">
+      <div class="fix-issue-summary-title">ISSUES INCLUDED IN PROMPTS</div>
+      ${allIssues.map(i => {
+        const c = severityColor[i.severity] || "#7eb3ff";
+        return `<div class="fix-issue-row"><span style="font-size:9px;color:${c};border:1px solid ${c}30;padding:1px 6px;border-radius:3px;flex-shrink:0;">${i.severity.toUpperCase()}</span><span style="color:var(--text-second);">${i.category}</span><span style="color:var(--text-primary);flex:1;">${i.title}</span></div>`;
+      }).join("") || '<div style="color:var(--text-dim);font-size:11px;padding:4px 0;">No issues found — site is clean!</div>'}
+    </div>
+
+    <div class="fix-cards">
+      <div class="fix-card fix-card-claude">
+        <div class="fix-card-head">
+          <div class="fix-card-label">
+            <div class="fix-card-logo">⬡</div>
+            <div>
+              <div class="fix-card-name">Claude prompt</div>
+              <div class="fix-card-desc">Optimized for claude.ai — uses XML tags, structured context, explicit verification steps</div>
+            </div>
+          </div>
+          <button class="fix-copy-btn" id="copy-claude-btn" onclick="copyPrompt('claude')">Copy prompt</button>
+        </div>
+        <div class="fix-prompt-box" id="claude-prompt-box">${claudePrompt.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+        <button class="fix-open-btn" onclick="openInClaude()">↗ Open claude.ai</button>
+      </div>
+
+      <div class="fix-card fix-card-gpt">
+        <div class="fix-card-head">
+          <div class="fix-card-label">
+            <div class="fix-card-logo">◎</div>
+            <div>
+              <div class="fix-card-name">ChatGPT prompt</div>
+              <div class="fix-card-desc">Optimized for ChatGPT — clean markdown format, numbered fixes, explicit deliverables</div>
+            </div>
+          </div>
+          <button class="fix-copy-btn" id="copy-gpt-btn" onclick="copyPrompt('gpt')">Copy prompt</button>
+        </div>
+        <div class="fix-prompt-box" id="gpt-prompt-box">${gptPrompt.replace(/</g,"&lt;").replace(/>/g,"&gt;")}</div>
+        <button class="fix-open-btn" onclick="openInGPT()">↗ Open ChatGPT</button>
+      </div>
+    </div>
+  `;
+
+  // Store raw prompts for copying
+  window._claudePrompt = claudePrompt;
+  window._gptPrompt = gptPrompt;
+}
+
+function copyPrompt(type) {
+  const text = type === "claude" ? window._claudePrompt : window._gptPrompt;
+  const btnId = type === "claude" ? "copy-claude-btn" : "copy-gpt-btn";
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(btnId);
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = "✓ Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove("copied"); }, 2000);
+    }
+  }).catch(() => {
+    // Fallback for browsers that block clipboard
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    const btn = document.getElementById(btnId);
+    if (btn) { btn.textContent = "✓ Copied!"; setTimeout(() => btn.textContent = "Copy prompt", 2000); }
+  });
+}
+
+function openInClaude() {
+  window.open("https://claude.ai", "_blank");
+}
+
+function openInGPT() {
+  window.open("https://chat.openai.com", "_blank");
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{btn.addEventListener("click",()=>{
+  if(btn.dataset.tab==="fix"&&phase==="done"&&allIssues!==undefined){generateFixPrompts();return;}
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+});});
 document.getElementById("run-btn").addEventListener("click",()=>{let v=document.getElementById("url-input").value.trim();if(!v)return;if(!v.startsWith("http"))v="https://"+v;clearInterval(timerInterval);startScan(v,currentMode);});
 document.getElementById("url-input").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("run-btn").click();});
 document.getElementById("rescan-btn").addEventListener("click",()=>{clearInterval(timerInterval);startScan(currentUrl,currentMode);});
