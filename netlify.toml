@@ -1,11 +1,24 @@
 [build]
   publish = "public"
   command = ""
-
+ 
 [functions]
   directory = "netlify/functions"
-
+ 
 [[redirects]]
   from = "/api/claude"
   to = "/.netlify/functions/claude"
   status = 200
+ 
+# ── Security headers on all responses ─────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # CSP: allows fonts, our own function endpoint, Anthropic API (via our proxy), Google Fonts
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.anthropic.com; img-src 'self' data: https:; frame-ancestors 'none'"
+ 
