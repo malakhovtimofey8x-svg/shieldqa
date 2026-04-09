@@ -3,7 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShieldQA — Autonomous QA Agent</title>
+
+<!-- Primary SEO -->
+<title>ShieldQA — Autonomous AI QA Agent for Web Apps</title>
+<meta name="description" content="ShieldQA runs real HTTP fetches and deep AI analysis on your website — SEO, security headers, accessibility, performance, mobile UX and more. Get a full QA audit in minutes, continuously monitored 24/7.">
+<meta name="keywords" content="QA testing, website audit, SEO checker, security headers, accessibility testing, performance analysis, automated testing, AI QA agent">
+<meta name="author" content="ShieldQA">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sheildqa.netlify.app/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sheildqa.netlify.app/">
+<meta property="og:title" content="ShieldQA — Autonomous AI QA Agent">
+<meta property="og:description" content="Drop a URL. Get a full QA audit in minutes. Real HTTP fetch, AI deep analysis, security headers, SEO, accessibility, performance — continuously monitored 24/7.">
+<meta property="og:image" content="https://sheildqa.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="ShieldQA">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://sheildqa.netlify.app/">
+<meta name="twitter:title" content="ShieldQA — Autonomous AI QA Agent">
+<meta name="twitter:description" content="Drop a URL. Get a real AI-powered QA audit — SEO, security, accessibility, performance, mobile. Runs 24/7.">
+<meta name="twitter:image" content="https://sheildqa.netlify.app/og-image.png">
+
+<!-- Favicon — inline SVG, no external file needed -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBjMGMyMiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMDEwMmUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMC41IiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0ZjhlZjciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOWI2ZGZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnbG93IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM3ZWIzZmYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzRhMGZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8IS0tIEJhY2tncm91bmQgcm91bmRlZCBzcXVhcmUgLS0+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9InVybCgjYmcpIi8+CiAgPCEtLSBTdWJ0bGUgYm9yZGVyIC0tPgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMyZTJlNWEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gU2hpZWxkIGJvZHkgLS0+CiAgPHBhdGggZD0iTTI1NiA4OCBMMzc2IDE0MCBMMzc2IDI0OCBRMzc2IDMzNiAyNTYgMzkyIFExMzYgMzM2IDEzNiAyNDggTDEzNiAxNDAgWiIgZmlsbD0idXJsKCNzaGllbGQpIiBvcGFjaXR5PSIwLjk1Ii8+CiAgPCEtLSBTaGllbGQgaW5uZXIgaGlnaGxpZ2h0IC0tPgogIDxwYXRoIGQ9Ik0yNTYgMTEyIEwzNTYgMTU2IEwzNTYgMjQ4IFEzNTYgMzIwIDI1NiAzNjggUTE1NiAzMjAgMTU2IDI0OCBMMTU2IDE1NiBaIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xMikiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBTY2FuIGxpbmUgMSAoaG9yaXpvbnRhbCkgLS0+CiAgPGxpbmUgeDE9IjEzNiIgeTE9IjIzMCIgeDI9IjM3NiIgeTI9IjIzMCIgc3Ryb2tlPSIjN2ViM2ZmIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC4zNSIvPgogIDwhLS0gU2NhbiBsaW5lIDIgLS0+CiAgPGxpbmUgeDE9IjE1MiIgeTE9IjI2MiIgeDI9IjM2MCIgeTI9IjI2MiIgc3Ryb2tlPSIjOWI2ZGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMjUiLz4KICA8IS0tIFEgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjIzOCIgcj0iNjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMTQiIG9wYWNpdHk9IjAuOTUiLz4KICA8IS0tIFEgdGFpbCAtLT4KICA8bGluZSB4MT0iMjk4IiB5MT0iMjc4IiB4Mj0iMzM0IiB5Mj0iMzE0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuOTUiLz4KICA8IS0tIENvcm5lciBkb3RzIChyYWRhciBmZWVsKSAtLT4KICA8Y2lyY2xlIGN4PSIxODYiIGN5PSIxNjgiIHI9IjUiIGZpbGw9InJnYmEoMTI3LDE3OSwyNTUsMC41KSIvPgogIDxjaXJjbGUgY3g9IjMyNiIgY3k9IjE2OCIgcj0iNSIgZmlsbD0icmdiYSgxNTUsMTA5LDI1NSwwLjUpIi8+CiAgPCEtLSBCb3R0b20gcHVsc2UgYXJjIC0tPgogIDxwYXRoIGQ9Ik0yMDYgMzcwIFEyNTYgMzk4IDMwNiAzNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnbG93KSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBjMGMyMiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMDEwMmUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNoaWVsZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMC41IiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0ZjhlZjciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOWI2ZGZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnbG93IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM3ZWIzZmYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzRhMGZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8IS0tIEJhY2tncm91bmQgcm91bmRlZCBzcXVhcmUgLS0+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTIiIGZpbGw9InVybCgjYmcpIi8+CiAgPCEtLSBTdWJ0bGUgYm9yZGVyIC0tPgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMyZTJlNWEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDwhLS0gU2hpZWxkIGJvZHkgLS0+CiAgPHBhdGggZD0iTTI1NiA4OCBMMzc2IDE0MCBMMzc2IDI0OCBRMzc2IDMzNiAyNTYgMzkyIFExMzYgMzM2IDEzNiAyNDggTDEzNiAxNDAgWiIgZmlsbD0idXJsKCNzaGllbGQpIiBvcGFjaXR5PSIwLjk1Ii8+CiAgPCEtLSBTaGllbGQgaW5uZXIgaGlnaGxpZ2h0IC0tPgogIDxwYXRoIGQ9Ik0yNTYgMTEyIEwzNTYgMTU2IEwzNTYgMjQ4IFEzNTYgMzIwIDI1NiAzNjggUTE1NiAzMjAgMTU2IDI0OCBMMTU2IDE1NiBaIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xMikiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBTY2FuIGxpbmUgMSAoaG9yaXpvbnRhbCkgLS0+CiAgPGxpbmUgeDE9IjEzNiIgeTE9IjIzMCIgeDI9IjM3NiIgeTI9IjIzMCIgc3Ryb2tlPSIjN2ViM2ZmIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC4zNSIvPgogIDwhLS0gU2NhbiBsaW5lIDIgLS0+CiAgPGxpbmUgeDE9IjE1MiIgeTE9IjI2MiIgeDI9IjM2MCIgeTI9IjI2MiIgc3Ryb2tlPSIjOWI2ZGZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuMjUiLz4KICA8IS0tIFEgY2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjIzOCIgcj0iNjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMTQiIG9wYWNpdHk9IjAuOTUiLz4KICA8IS0tIFEgdGFpbCAtLT4KICA8bGluZSB4MT0iMjk4IiB5MT0iMjc4IiB4Mj0iMzM0IiB5Mj0iMzE0IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuOTUiLz4KICA8IS0tIENvcm5lciBkb3RzIChyYWRhciBmZWVsKSAtLT4KICA8Y2lyY2xlIGN4PSIxODYiIGN5PSIxNjgiIHI9IjUiIGZpbGw9InJnYmEoMTI3LDE3OSwyNTUsMC41KSIvPgogIDxjaXJjbGUgY3g9IjMyNiIgY3k9IjE2OCIgcj0iNSIgZmlsbD0icmdiYSgxNTUsMTA5LDI1NSwwLjUpIi8+CiAgPCEtLSBCb3R0b20gcHVsc2UgYXJjIC0tPgogIDxwYXRoIGQ9Ik0yMDYgMzcwIFEyNTYgMzk4IDMwNiAzNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnbG93KSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+">
+
+<!-- Theme -->
+<meta name="theme-color" content="#080818">
+<meta name="color-scheme" content="dark">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ShieldQA",
+  "url": "https://sheildqa.netlify.app/",
+  "description": "Autonomous AI QA agent that performs real HTTP fetches and deep analysis of websites — SEO, security headers, accessibility, performance, mobile UX and more.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Real HTTP site fetching",
+    "AI-powered bug analysis",
+    "SEO audit",
+    "Security headers check",
+    "Accessibility testing",
+    "Performance analysis",
+    "Mobile UX testing",
+    "24/7 continuous monitoring",
+    "Fix prompt generation"
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -217,7 +279,19 @@
 <div id="header">
   <div id="header-inner">
     <div style="display:flex;align-items:center;gap:12px;">
-      <div class="logo-mark">⬡</div>
+      <div class="logo-mark" style="padding:0;overflow:hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="34" height="34" style="display:block;">
+          <defs>
+            <linearGradient id="lbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0c0c22"/><stop offset="100%" stop-color="#10102e"/></linearGradient>
+            <linearGradient id="lsh" x1="0" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#4f8ef7"/><stop offset="100%" stop-color="#9b6dff"/></linearGradient>
+          </defs>
+          <rect width="512" height="512" rx="112" fill="url(#lbg)"/>
+          <path d="M256 88 L376 140 L376 248 Q376 336 256 392 Q136 336 136 248 L136 140 Z" fill="url(#lsh)" opacity="0.95"/>
+          <circle cx="256" cy="238" r="62" fill="none" stroke="white" stroke-width="14" opacity="0.95"/>
+          <line x1="298" y1="278" x2="334" y2="314" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+          <line x1="136" y1="230" x2="376" y2="230" stroke="#7eb3ff" stroke-width="2" opacity="0.3"/>
+        </svg>
+      </div>
       <div><div class="logo-name">ShieldQA</div><div class="logo-sub">AUTONOMOUS QA AGENT</div></div>
     </div>
     <div id="header-right">
