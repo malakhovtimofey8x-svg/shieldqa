@@ -90,6 +90,8 @@
   .mode-badge{font-size:10px;padding:2px 10px;border-radius:4px;border:1px solid rgba(79,142,247,.3);background:rgba(79,142,247,.1);color:var(--blue-light);letter-spacing:.06em}
   #rescan-btn{background:transparent;border:1px solid var(--border-hi);color:var(--text-second);border-radius:7px;padding:5px 14px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .2s}
   #rescan-btn:hover{border-color:var(--blue);color:var(--blue-light)}
+  #done-btn{background:transparent;border:1px solid rgba(155,109,255,.35);color:#c4a0ff;border-radius:7px;padding:5px 14px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .2s}
+  #done-btn:hover{background:rgba(155,109,255,.12);border-color:rgba(155,109,255,.6)}
 
   /* METRICS */
   #metrics{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px;animation:fadeIn .5s ease}
@@ -285,6 +287,7 @@
       <div id="status-right">
         <span id="run-label" class="run-label">run #1</span>
         <button id="rescan-btn" class="hidden">↺ Rescan now</button>
+        <button id="done-btn">✕ Done</button>
       </div>
     </div>
 
@@ -793,6 +796,18 @@ document.getElementById("url-input").addEventListener("keydown",e=>{
 
 document.getElementById("rescan-btn").addEventListener("click",()=>{
   clearInterval(timerInterval);startScan(currentUrl,currentMode);
+});
+
+document.getElementById("done-btn").addEventListener("click",()=>{
+  clearInterval(timerInterval);
+  running=false;
+  phase="idle";
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("hero").classList.remove("hidden");
+  document.getElementById("hero").style.animation="fadeIn .4s ease";
+  document.getElementById("header-status").classList.add("hidden");
+  document.getElementById("header-timer").classList.add("hidden");
+  document.getElementById("url-input").value="";
 });
 </script>
 </body>
