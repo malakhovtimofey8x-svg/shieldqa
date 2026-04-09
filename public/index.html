@@ -17,21 +17,20 @@
     --text-primary:#dde2ff; --text-second:#8890cc; --text-dim:#3a3a6a;
     --mono:'DM Mono',monospace; --syne:'Syne',sans-serif;
   }
-  html,body { min-height:100%; background:var(--bg1); color:var(--text-primary); font-family:var(--mono); }
-  ::-webkit-scrollbar{width:4px;height:4px} ::-webkit-scrollbar-track{background:var(--bg0)} ::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:2px}
-  @keyframes ping    {0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(2.4);opacity:0}}
-  @keyframes scan    {0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-  @keyframes fadeIn  {from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-  @keyframes shimmer {0%{background-position:200% center}100%{background-position:-200% center}}
-  @keyframes orb1    {0%,100%{transform:translate(0,0)}33%{transform:translate(50px,-40px)}66%{transform:translate(-30px,30px)}}
-  @keyframes orb2    {0%,100%{transform:translate(0,0)}33%{transform:translate(-40px,50px)}66%{transform:translate(40px,-30px)}}
+  html,body{min-height:100%;background:var(--bg1);color:var(--text-primary);font-family:var(--mono)}
+  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg0)}::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:2px}
+  @keyframes ping{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(2.4);opacity:0}}
+  @keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+  @keyframes orb1{0%,100%{transform:translate(0,0)}33%{transform:translate(50px,-40px)}66%{transform:translate(-30px,30px)}}
+  @keyframes orb2{0%,100%{transform:translate(0,0)}33%{transform:translate(-40px,50px)}66%{transform:translate(40px,-30px)}}
   @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
   #orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
   .orb{position:absolute;border-radius:50%}
   .orb1{width:700px;height:700px;background:radial-gradient(circle,#4f8ef718 0%,transparent 70%);top:-250px;left:-150px;animation:orb1 20s ease-in-out infinite}
   .orb2{width:600px;height:600px;background:radial-gradient(circle,#9b6dff14 0%,transparent 70%);bottom:-150px;right:-150px;animation:orb2 25s ease-in-out infinite}
   .orb3{width:400px;height:400px;background:radial-gradient(circle,#6e7fff0e 0%,transparent 70%);top:35%;left:45%;animation:orb1 16s ease-in-out infinite reverse}
-
   #header{position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);background:rgba(5,5,15,.92);backdrop-filter:blur(20px);padding:0 24px}
   #header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px}
   .logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#4f8ef7,#9b6dff);display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 20px #4f8ef755;flex-shrink:0}
@@ -43,25 +42,19 @@
   .pdot-ring{position:absolute;inset:0;border-radius:50%;opacity:.35;animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite}
   .pdot-core{position:absolute;inset:0;border-radius:50%}
   #main{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
-
-  /* HERO */
   #hero{text-align:center;padding:70px 20px 60px;animation:fadeIn .6s ease}
   .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:20px;margin-bottom:28px;border:1px solid rgba(79,142,247,.22);background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(155,109,255,.07));font-size:11px;letter-spacing:.08em}
   #hero h1{font-family:var(--syne);font-weight:800;font-size:clamp(30px,5.5vw,54px);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
   #hero h1 .line1{color:var(--text-primary);display:block}
   #hero h1 .line2{background:linear-gradient(90deg,#4f8ef7,#9b6dff,#7eb3ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;display:block}
-  #hero p{color:var(--text-second);font-size:13px;max-width:420px;margin:0 auto 36px;line-height:1.75}
-
-  /* MODE SELECTOR */
+  #hero p{color:var(--text-second);font-size:13px;max-width:480px;margin:0 auto 36px;line-height:1.75}
   #mode-selector{display:flex;justify-content:center;gap:10px;margin-bottom:28px;flex-wrap:wrap}
-  .mode-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:all .2s;min-width:110px}
+  .mode-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 22px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:all .2s;min-width:110px}
   .mode-btn:hover{border-color:var(--border-hi)}
   .mode-btn.active{border-color:rgba(79,142,247,.5);background:linear-gradient(135deg,rgba(79,142,247,.12),rgba(155,109,255,.12));box-shadow:0 0 20px rgba(79,142,247,.15)}
   .mode-btn .mode-icon{font-size:20px}
   .mode-btn .mode-label{font-size:11px;color:var(--text-second);letter-spacing:.04em}
   .mode-btn.active .mode-label{color:var(--blue-light)}
-
-  /* URL INPUT */
   #url-wrapper{max-width:600px;margin:0 auto;position:relative}
   #url-border{position:absolute;inset:-1px;border-radius:15px;background:linear-gradient(135deg,rgba(79,142,247,.4),rgba(155,109,255,.4));pointer-events:none;z-index:0}
   #url-inner{position:relative;z-index:1;display:flex;background:var(--bg2);border-radius:14px;padding:5px}
@@ -70,21 +63,11 @@
   #run-btn{background:linear-gradient(135deg,#4f8ef7,#9b6dff);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:13px;font-family:var(--mono);font-weight:500;cursor:pointer;letter-spacing:.04em;box-shadow:0 0 20px rgba(79,142,247,.25);transition:box-shadow .2s,transform .15s;white-space:nowrap}
   #run-btn:hover{box-shadow:0 0 32px rgba(79,142,247,.45);transform:translateY(-1px)}
   #run-btn:active{transform:translateY(0)}
-
-  /* PROBE RESULTS BANNER */
-  #probe-banner{display:none;margin:16px 0;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px}
-  #probe-banner-inner{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-  .probe-stat{display:flex;flex-direction:column;gap:2px}
-  .probe-stat-label{font-size:9px;color:var(--text-dim);letter-spacing:.1em}
-  .probe-stat-value{font-size:12px;color:var(--text-primary)}
-
-  .feature-pills{display:flex;justify-content:center;gap:10px;margin-top:36px;flex-wrap:wrap}
-  .pill{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:11px;color:var(--text-second)}
-
-  /* DASHBOARD */
+  .feature-pills{display:flex;justify-content:center;gap:8px;margin-top:36px;flex-wrap:wrap}
+  .pill{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--text-second)}
   #dashboard{padding-top:20px;animation:fadeIn .3s ease}
-  #status-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 20px;margin-bottom:16px;flex-wrap:wrap;gap:12px}
-  #status-left,#status-right{display:flex;align-items:center;gap:12px}
+  #status-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 20px;margin-bottom:12px;flex-wrap:wrap;gap:12px}
+  #status-left,#status-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .status-label{color:var(--text-dim);font-size:11px;letter-spacing:.06em}
   .run-label{color:var(--text-dim);font-size:11px}
   .mode-badge{font-size:10px;padding:2px 10px;border-radius:4px;border:1px solid rgba(79,142,247,.3);background:rgba(79,142,247,.1);color:var(--blue-light);letter-spacing:.06em}
@@ -92,23 +75,22 @@
   #rescan-btn:hover{border-color:var(--blue);color:var(--blue-light)}
   #done-btn{background:transparent;border:1px solid rgba(155,109,255,.35);color:#c4a0ff;border-radius:7px;padding:5px 14px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .2s}
   #done-btn:hover{background:rgba(155,109,255,.12);border-color:rgba(155,109,255,.6)}
-
-  /* METRICS */
+  #fetch-status{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:12px;display:none;animation:fadeIn .3s ease}
+  #fetch-status-inner{display:flex;gap:20px;flex-wrap:wrap}
+  .fstat{display:flex;flex-direction:column;gap:1px}
+  .fstat-label{font-size:9px;color:var(--text-dim);letter-spacing:.1em}
+  .fstat-value{font-size:12px}
   #metrics{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px;animation:fadeIn .5s ease}
   .metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;position:relative;overflow:hidden}
   .metric-card .bar{position:absolute;top:0;right:0;bottom:0;width:3px;background:linear-gradient(180deg,#4f8ef7,#9b6dff);border-radius:0 12px 12px 0}
   .metric-label{font-size:10px;color:var(--text-dim);letter-spacing:.1em;margin-bottom:5px}
   .metric-value{font-size:22px;font-weight:700;font-family:var(--syne)}
   #score-card{display:flex;align-items:center;justify-content:center}
-
-  /* TABS */
   #tabs{display:flex;gap:2px;margin-bottom:16px;background:var(--bg0);border-radius:10px;padding:4px;width:fit-content;border:1px solid var(--border);flex-wrap:wrap}
   .tab-btn{background:transparent;border:1px solid transparent;color:var(--text-dim);border-radius:7px;padding:6px 16px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .15s}
   .tab-btn.active{background:linear-gradient(135deg,rgba(79,142,247,.15),rgba(155,109,255,.15));border-color:rgba(79,142,247,.25);color:var(--blue-light)}
   .tab-panel{display:none}
   .tab-panel.active{display:block;animation:fadeIn .25s ease}
-
-  /* TASK GRID */
   #tasks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
   .task-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s}
   .task-card.running{border-color:rgba(79,142,247,.19);box-shadow:0 0 24px rgba(79,142,247,.09)}
@@ -120,7 +102,7 @@
   .task-name{color:var(--text-primary);font-size:12px;font-weight:500}
   .task-meta{display:flex;align-items:center;gap:6px}
   .task-score{font-size:10px;padding:2px 7px;border-radius:4px;border-width:1px;border-style:solid}
-  .task-status{font-size:10px;letter-spacing:.06em}
+  .task-status-txt{font-size:10px;letter-spacing:.06em}
   .subtask-pills{display:flex;gap:4px;flex-wrap:wrap}
   .subtask-pill{font-size:9px;color:var(--text-dim);background:var(--bg3);padding:2px 7px;border-radius:4px;border:1px solid var(--border);transition:all .3s}
   .subtask-pill.active{color:var(--blue);background:rgba(79,142,247,.08);border-color:rgba(79,142,247,.25)}
@@ -132,8 +114,6 @@
   .issue-badge{font-size:9px;flex-shrink:0;margin-top:1px;letter-spacing:.04em}
   .issue-title-sm{color:#cccce8;font-size:10px;line-height:1.4}
   .no-issues{color:#5bdfb0;font-size:10px}
-
-  /* ISSUES */
   #issues-list{display:flex;flex-direction:column;gap:8px}
   #issues-empty{font-size:13px;text-align:center;padding:50px}
   .issue-row{border-radius:10px;overflow:hidden;border-width:1px;border-style:solid;border-color:var(--border);transition:border-color .25s,box-shadow .25s;cursor:pointer}
@@ -147,29 +127,24 @@
   .issue-section{margin-bottom:12px}
   .issue-section-label{font-size:10px;letter-spacing:.1em;margin-bottom:5px}
   .issue-section-text{font-size:12px;line-height:1.65}
-
-  /* LOGS */
-  #logs-box{background:var(--bg0);border:1px solid var(--border);border-radius:12px;padding:16px;height:460px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+  #logs-box{background:var(--bg0);border:1px solid var(--border);border-radius:12px;padding:16px;height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
   #logs-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
   #logs-head span{font-size:10px;color:var(--text-dim);letter-spacing:.08em}
   .log-line{display:flex;gap:10px;font-size:11px;line-height:1.65;animation:fadeIn .2s ease}
   .log-time{color:var(--text-dim);flex-shrink:0}
   .log-type{flex-shrink:0}
-  .log-msg{color:var(--text-second)}
-
-  /* PROBE TAB */
-  #probe-results{display:flex;flex-direction:column;gap:10px}
-  .probe-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 18px}
-  .probe-card-title{font-size:11px;color:var(--text-dim);letter-spacing:.08em;margin-bottom:10px}
-  .probe-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
-  .probe-item:last-child{border-bottom:none}
-  .probe-item-label{color:var(--text-second)}
-  .probe-item-value{color:var(--text-primary);text-align:right;max-width:60%}
-  .probe-ok{color:#5bdfb0}
-  .probe-warn{color:#f5d442}
-  .probe-fail{color:#ff5b7f}
-
-  /* REPORT */
+  .log-msg{color:var(--text-second);word-break:break-word}
+  #raw-box{background:var(--bg0);border:1px solid var(--border);border-radius:12px;padding:16px;max-height:560px;overflow-y:auto}
+  .raw-section{margin-bottom:20px}
+  .raw-section-title{font-size:10px;color:var(--text-dim);letter-spacing:.1em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+  .raw-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid #1a1a2a;font-size:11px;gap:16px}
+  .raw-row:last-child{border-bottom:none}
+  .raw-key{color:var(--text-second);flex-shrink:0;min-width:180px}
+  .raw-val{color:var(--text-primary);text-align:right;word-break:break-all}
+  .raw-val.good{color:#5bdfb0}.raw-val.bad{color:#ff5b7f}.raw-val.warn{color:#f5d442}
+  .finding-item{padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);margin-bottom:6px;font-size:11px;line-height:1.6}
+  .finding-pass{border-color:#5bdfb030;background:rgba(5,26,20,.25)}
+  .finding-fail{border-color:#ff5b7f30;background:rgba(30,6,21,.25)}
   #report-content{display:flex;flex-direction:column;gap:14px;animation:fadeIn .4s ease}
   #report-placeholder{color:var(--text-dim);font-size:13px;text-align:center;padding:50px}
   .report-card{background:var(--bg2);border-radius:14px;padding:20px 24px;border:1px solid var(--border);position:relative;overflow:hidden}
@@ -195,27 +170,17 @@
   .timer-left{display:flex;align-items:center;gap:10px}
   .timer-label{font-size:12px;color:var(--text-second)}
   .timer-value{font-size:22px;font-family:var(--syne);font-weight:700;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-  #error-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e0615;border:1px solid #ff5b7f40;color:#ff9bb8;padding:12px 24px;border-radius:10px;font-size:12px;z-index:999;display:none;animation:fadeIn .3s ease;max-width:480px;text-align:center}
+  #error-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e0615;border:1px solid #ff5b7f40;color:#ff9bb8;padding:12px 24px;border-radius:10px;font-size:12px;z-index:999;display:none;animation:fadeIn .3s ease;max-width:500px;text-align:center}
   .hidden{display:none !important}
 </style>
 </head>
 <body>
-
-<div id="orbs">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-</div>
-
+<div id="orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
 <div id="header">
   <div id="header-inner">
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="logo-mark">⬡</div>
-      <div>
-        <div class="logo-name">ShieldQA</div>
-        <div class="logo-sub">AUTONOMOUS QA AGENT</div>
-      </div>
+      <div><div class="logo-name">ShieldQA</div><div class="logo-sub">AUTONOMOUS QA AGENT</div></div>
     </div>
     <div id="header-right">
       <div id="header-status" class="hidden" style="display:flex;align-items:center;gap:7px;">
@@ -229,32 +194,19 @@
     </div>
   </div>
 </div>
-
 <div id="main">
   <div id="hero">
     <div class="hero-badge">
       <span class="pdot" style="width:6px;height:6px;"><span class="pdot-ring" style="background:#9b6dff;"></span><span class="pdot-core" style="background:#9b6dff;"></span></span>
-      <span class="grad-text">AI-POWERED · 24/7 CONTINUOUS TESTING</span>
+      <span class="grad-text">REAL HTTP FETCH · AI DEEP ANALYSIS · 24/7</span>
     </div>
     <h1><span class="line1">Drop a URL.</span><span class="line2">We break it first.</span></h1>
-    <p>AI agent runs deep QA tests — auth, SEO, accessibility, security headers, performance and more. Continuously monitors around the clock.</p>
-
-    <!-- MODE SELECTOR -->
+    <p>ShieldQA fetches your actual site — real HTML, headers, status codes — then runs deep AI analysis on actual data. No guessing.</p>
     <div id="mode-selector">
-      <div class="mode-btn active" data-mode="both">
-        <span class="mode-icon">⚡</span>
-        <span class="mode-label">FULL SCAN</span>
-      </div>
-      <div class="mode-btn" data-mode="frontend">
-        <span class="mode-icon">🖥️</span>
-        <span class="mode-label">FRONTEND</span>
-      </div>
-      <div class="mode-btn" data-mode="backend">
-        <span class="mode-icon">⚙️</span>
-        <span class="mode-label">BACKEND</span>
-      </div>
+      <div class="mode-btn active" data-mode="both"><span class="mode-icon">⚡</span><span class="mode-label">FULL SCAN</span></div>
+      <div class="mode-btn" data-mode="frontend"><span class="mode-icon">🖥️</span><span class="mode-label">FRONTEND</span></div>
+      <div class="mode-btn" data-mode="backend"><span class="mode-icon">⚙️</span><span class="mode-label">BACKEND</span></div>
     </div>
-
     <div id="url-wrapper">
       <div id="url-border"></div>
       <div id="url-inner">
@@ -262,21 +214,18 @@
         <button id="run-btn">Run Agent →</button>
       </div>
     </div>
-
     <div class="feature-pills">
-      <div class="pill"><span>🔐</span><span>Auth</span></div>
+      <div class="pill"><span>🌐</span><span>Real HTTP fetch</span></div>
       <div class="pill"><span>🔍</span><span>SEO</span></div>
       <div class="pill"><span>♿</span><span>Accessibility</span></div>
-      <div class="pill"><span>🛡️</span><span>Security headers</span></div>
+      <div class="pill"><span>🛡️</span><span>Security</span></div>
       <div class="pill"><span>📱</span><span>Mobile</span></div>
       <div class="pill"><span>⚡</span><span>Performance</span></div>
-      <div class="pill"><span>🌐</span><span>HTTP probe</span></div>
+      <div class="pill"><span>📊</span><span>Static analysis</span></div>
     </div>
   </div>
 
-  <!-- DASHBOARD -->
   <div id="dashboard" class="hidden">
-
     <div id="status-bar">
       <div id="status-left">
         <span class="pdot" id="status-dot" style="width:8px;height:8px;"><span class="pdot-ring" style="background:#4f8ef7;"></span><span class="pdot-core" style="background:#4f8ef7;"></span></span>
@@ -290,12 +239,7 @@
         <button id="done-btn">✕ Done</button>
       </div>
     </div>
-
-    <!-- HTTP Probe results banner -->
-    <div id="probe-banner">
-      <div id="probe-banner-inner"></div>
-    </div>
-
+    <div id="fetch-status"><div id="fetch-status-inner"></div></div>
     <div id="metrics" class="hidden">
       <div class="metric-card" id="score-card">
         <svg id="score-ring" width="78" height="78" style="transform:rotate(-90deg);">
@@ -304,23 +248,21 @@
           <text id="score-text" x="39" y="39" text-anchor="middle" dominant-baseline="central" fill="#5bdfb0" font-size="16" font-family="'DM Mono',monospace" font-weight="600" style="transform:rotate(90deg);transform-origin:39px 39px;">—</text>
         </svg>
       </div>
-      <div class="metric-card"><div class="bar"></div><div class="metric-label">STATUS</div><div class="metric-value" id="mv-status">—</div></div>
+      <div class="metric-card"><div class="bar"></div><div class="metric-label">HEALTH</div><div class="metric-value" id="mv-status">—</div></div>
       <div class="metric-card"><div class="bar"></div><div class="metric-label">ISSUES</div><div class="metric-value" id="mv-issues">0</div></div>
       <div class="metric-card"><div class="bar"></div><div class="metric-label">CRITICAL</div><div class="metric-value" id="mv-critical">0</div></div>
       <div class="metric-card"><div class="bar"></div><div class="metric-label">HIGH</div><div class="metric-value" id="mv-high">0</div></div>
-      <div class="metric-card"><div class="bar"></div><div class="metric-label">TASKS RUN</div><div class="metric-value" id="mv-tasks">0</div></div>
+      <div class="metric-card"><div class="bar"></div><div class="metric-label">TASKS</div><div class="metric-value" id="mv-tasks">0</div></div>
     </div>
-
     <div id="tabs">
       <button class="tab-btn active" data-tab="tasks">Tasks</button>
-      <button class="tab-btn" data-tab="probe" id="tab-probe-btn">HTTP Probe</button>
+      <button class="tab-btn" data-tab="raw">Raw Data</button>
       <button class="tab-btn" data-tab="issues" id="tab-issues-btn">Issues</button>
       <button class="tab-btn" data-tab="logs">Live logs</button>
       <button class="tab-btn" data-tab="report">AI Report</button>
     </div>
-
     <div class="tab-panel active" id="panel-tasks"><div id="tasks-grid"></div></div>
-    <div class="tab-panel" id="panel-probe"><div id="probe-results"></div></div>
+    <div class="tab-panel" id="panel-raw"><div id="raw-box"></div></div>
     <div class="tab-panel" id="panel-issues">
       <div id="issues-empty" style="color:var(--text-dim);">Scan in progress...</div>
       <div id="issues-list"></div>
@@ -340,373 +282,374 @@
     </div>
   </div>
 </div>
-
 <div style="height:60px;"></div>
 <div id="error-toast"></div>
 
 <script>
-// ── TASK DEFINITIONS BY MODE ───────────────────────────────────────────────
 const ALL_TASKS = {
-  frontend: [
-    { id:"auth",   label:"Auth flows",       icon:"🔐", subtasks:["sign up","login","logout","password reset"] },
-    { id:"ui",     label:"UI rendering",     icon:"🖼️",  subtasks:["viewport sizes","CSS errors","broken images","contrast ratios"] },
-    { id:"mobile", label:"Mobile UX",        icon:"📱", subtasks:["responsive layout","touch targets","font sizes","viewport meta"] },
-    { id:"seo",    label:"SEO",              icon:"🔍", subtasks:["meta title","meta description","Open Graph","canonical tags","sitemap"] },
-    { id:"a11y",   label:"Accessibility",    icon:"♿", subtasks:["alt text","ARIA labels","keyboard nav","color contrast","focus states"] },
-    { id:"perf",   label:"Performance",      icon:"📊", subtasks:["load time","LCP","CLS","render blocking","image optimization"] },
+  frontend:[
+    {id:"seo",   label:"SEO",           icon:"🔍",subtasks:["title tag","meta description","Open Graph","canonical","h1 structure","image alt text","schema markup"]},
+    {id:"a11y",  label:"Accessibility", icon:"♿",subtasks:["alt attributes","ARIA roles","heading hierarchy","color contrast","focus management","form labels"]},
+    {id:"mobile",label:"Mobile UX",     icon:"📱",subtasks:["viewport meta","touch targets","responsive images","font sizes","horizontal scroll"]},
+    {id:"perf",  label:"Performance",   icon:"📊",subtasks:["render-blocking","image optimization","inline scripts","HTML size","lazy loading"]},
+    {id:"ui",    label:"UI & Content",  icon:"🖼️", subtasks:["broken links","missing images","deprecated tags","content quality","CTA clarity"]},
+    {id:"auth",  label:"Auth flows",    icon:"🔐",subtasks:["login page","signup page","password reset","protected routes"]},
   ],
-  backend: [
-    { id:"api",    label:"API health",       icon:"⚡", subtasks:["/health endpoint","auth endpoints","core APIs","error handling"] },
-    { id:"sec",    label:"Security headers", icon:"🛡️",  subtasks:["HTTPS","HSTS","CSP","X-Frame-Options","CORS policy"] },
-    { id:"forms",  label:"Form validation",  icon:"📋", subtasks:["required fields","email format","XSS input","SQL injection","CSRF"] },
-    { id:"nav",    label:"Routing",          icon:"🧭", subtasks:["404 handling","redirects","deep links","error pages"] },
+  backend:[
+    {id:"sec",   label:"Security headers",icon:"🛡️", subtasks:["HTTPS","HSTS","CSP","X-Frame-Options","X-Content-Type","Referrer-Policy"]},
+    {id:"api",   label:"API & routing",  icon:"⚡",subtasks:["HTTP status","redirect chains","404 handling","response time","CORS"]},
+    {id:"crawl", label:"Crawlability",   icon:"🕷️",subtasks:["robots.txt","sitemap.xml","canonical","noindex","structured data"]},
+    {id:"forms", label:"Input security", icon:"📋",subtasks:["form action","autocomplete","input types","required fields","CSRF"]},
   ],
-  both: [
-    { id:"auth",   label:"Auth flows",       icon:"🔐", subtasks:["sign up","login","logout","password reset"] },
-    { id:"ui",     label:"UI rendering",     icon:"🖼️",  subtasks:["viewport sizes","CSS errors","broken images","contrast ratios"] },
-    { id:"mobile", label:"Mobile UX",        icon:"📱", subtasks:["responsive layout","touch targets","font sizes","viewport meta"] },
-    { id:"seo",    label:"SEO",              icon:"🔍", subtasks:["meta title","meta description","Open Graph","canonical","sitemap"] },
-    { id:"a11y",   label:"Accessibility",    icon:"♿", subtasks:["alt text","ARIA labels","keyboard nav","color contrast","focus states"] },
-    { id:"sec",    label:"Security headers", icon:"🛡️",  subtasks:["HTTPS","HSTS","CSP","X-Frame-Options","CORS policy"] },
-    { id:"api",    label:"API health",       icon:"⚡", subtasks:["/health endpoint","auth endpoints","core APIs","error handling"] },
-    { id:"forms",  label:"Form validation",  icon:"📋", subtasks:["required fields","email format","XSS input","SQL injection"] },
-    { id:"perf",   label:"Performance",      icon:"📊", subtasks:["load time","LCP","CLS","render blocking","image optimization"] },
-    { id:"nav",    label:"Routing",          icon:"🧭", subtasks:["404 handling","redirects","deep links","error pages"] },
-  ],
+  both:[
+    {id:"seo",   label:"SEO",           icon:"🔍",subtasks:["title tag","meta description","Open Graph","canonical","h1 structure","image alt text","schema markup"]},
+    {id:"sec",   label:"Security headers",icon:"🛡️", subtasks:["HTTPS","HSTS","CSP","X-Frame-Options","X-Content-Type","Referrer-Policy"]},
+    {id:"a11y",  label:"Accessibility", icon:"♿",subtasks:["alt attributes","ARIA roles","heading hierarchy","form labels","focus management"]},
+    {id:"mobile",label:"Mobile UX",     icon:"📱",subtasks:["viewport meta","touch targets","responsive images","font sizes"]},
+    {id:"perf",  label:"Performance",   icon:"📊",subtasks:["render-blocking","image optimization","inline scripts","HTML size"]},
+    {id:"api",   label:"API & routing", icon:"⚡",subtasks:["HTTP status","redirect chains","response time","CORS"]},
+    {id:"auth",  label:"Auth flows",    icon:"🔐",subtasks:["login page","signup page","password reset","protected routes"]},
+    {id:"crawl", label:"Crawlability",  icon:"🕷️",subtasks:["robots.txt","sitemap.xml","canonical","structured data"]},
+    {id:"ui",    label:"UI & Content",  icon:"🖼️", subtasks:["broken links","missing images","deprecated tags"]},
+    {id:"forms", label:"Input security",icon:"📋",subtasks:["form action","autocomplete","input types","CSRF"]},
+  ]
 };
 
-const SEV = {
-  critical:{ color:"#ff5b7f", bg:"#1e0615", label:"CRITICAL" },
-  high:    { color:"#ff8c5b", bg:"#1e0e06", label:"HIGH"     },
-  medium:  { color:"#f5d442", bg:"#1c1804", label:"MEDIUM"   },
-  low:     { color:"#5bdfb0", bg:"#051a14", label:"LOW"      },
-  info:    { color:"#7eb3ff", bg:"#060e22", label:"INFO"     },
-};
+const SEV={critical:{color:"#ff5b7f",bg:"#1e0615",label:"CRITICAL"},high:{color:"#ff8c5b",bg:"#1e0e06",label:"HIGH"},medium:{color:"#f5d442",bg:"#1c1804",label:"MEDIUM"},low:{color:"#5bdfb0",bg:"#051a14",label:"LOW"},info:{color:"#7eb3ff",bg:"#060e22",label:"INFO"}};
 
-let phase="idle", runCount=0, allIssues=[], report=null;
-let timerInterval=null, running=false, currentUrl="", currentMode="both";
-let probeData=null, activeTasks=[];
+let phase="idle",runCount=0,allIssues=[],report=null;
+let timerInterval=null,running=false,currentUrl="",currentMode="both";
+let siteData=null,activeTasks=[],staticFindings=[];
 
-// ── MODE SELECTOR ──────────────────────────────────────────────────────────
-document.querySelectorAll(".mode-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    currentMode = btn.dataset.mode;
-  });
+document.querySelectorAll(".mode-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentMode=btn.dataset.mode;});
 });
 
-// ── CLAUDE PROXY CALL ──────────────────────────────────────────────────────
-async function callClaude(system, user) {
-  const res = await fetch("/api/claude", {
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-      model:"claude-sonnet-4-20250514",
-      max_tokens:1200,
-      system,
-      messages:[{role:"user",content:user}]
-    })
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  return (data.content||[]).map(b=>b.text||"").join("");
+async function fetchSite(url){
+  const res=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"fetch",url})});
+  if(!res.ok)throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
-// ── HTTP PROBE (real requests via proxy) ───────────────────────────────────
-async function httpProbe(url) {
-  addLog("Running HTTP probe on target...","system");
-  try {
-    // We ask Claude to simulate what an HTTP probe would find
-    // based on the URL structure and common patterns
-    const sys = "You are an HTTP probe tool. Analyze the given URL and return realistic HTTP probe results as JSON only.";
-    const usr = `Probe this URL: ${url}
-
-Return JSON with realistic findings:
-{
-  "status_code": <number>,
-  "response_time_ms": <number>,
-  "https": <boolean>,
-  "headers": {
-    "hsts": <boolean>,
-    "csp": <boolean>,
-    "x_frame_options": <boolean>,
-    "x_content_type": <boolean>,
-    "cors": "open"|"restricted"|"none"
-  },
-  "redirects": <number>,
-  "server": "<server string or unknown>",
-  "robots_txt": <boolean>,
-  "sitemap_xml": <boolean>,
-  "meta_viewport": <boolean>,
-  "open_graph": <boolean>,
-  "issues": ["<real issue 1>","<real issue 2>"]
-}
-Be realistic based on what you know about this site or similar sites.`;
-
-    const raw = await callClaude(sys, usr);
-    const data = JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());
-    probeData = data;
-    renderProbeResults(data);
-    renderProbeBanner(data);
-    addLog(`HTTP probe complete — ${data.status_code} ${data.response_time_ms}ms`,"success");
-    return data;
-  } catch(e) {
-    addLog("HTTP probe failed: "+e.message,"warn");
-    return null;
-  }
+async function callClaude(system,user,maxTokens=2000){
+  const res=await fetch("/api/claude",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:maxTokens,system,messages:[{role:"user",content:user}]})});
+  if(!res.ok)throw new Error(`HTTP ${res.status}`);
+  const d=await res.json();
+  return(d.content||[]).map(b=>b.text||"").join("");
 }
 
-function renderProbeBanner(data) {
-  const banner = document.getElementById("probe-banner");
-  const inner = document.getElementById("probe-banner-inner");
-  banner.style.display = "block";
-  const httpsColor = data.https ? "#5bdfb0" : "#ff5b7f";
-  const statusColor = data.status_code < 400 ? "#5bdfb0" : "#ff5b7f";
-  inner.innerHTML = `
-    <div class="probe-stat"><div class="probe-stat-label">STATUS</div><div class="probe-stat-value" style="color:${statusColor}">${data.status_code}</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">RESPONSE</div><div class="probe-stat-value">${data.response_time_ms}ms</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">HTTPS</div><div class="probe-stat-value" style="color:${httpsColor}">${data.https?"✓ Secure":"✗ Insecure"}</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">HSTS</div><div class="probe-stat-value" style="color:${data.headers.hsts?"#5bdfb0":"#ff5b7f"}">${data.headers.hsts?"✓":"✗"}</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">CSP</div><div class="probe-stat-value" style="color:${data.headers.csp?"#5bdfb0":"#ff5b7f"}">${data.headers.csp?"✓":"✗"}</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">SERVER</div><div class="probe-stat-value">${data.server||"unknown"}</div></div>
-    <div class="probe-stat"><div class="probe-stat-label">REDIRECTS</div><div class="probe-stat-value">${data.redirects}</div></div>
-  `;
-}
+function parseJSON(raw){return JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());}
 
-function renderProbeResults(data) {
-  const el = document.getElementById("probe-results");
-  el.innerHTML = "";
+function analyzeStatically(data){
+  const html=data.html||"",headers=data.headers||{},findings=[];
+  let doc;
+  try{doc=new DOMParser().parseFromString(html,"text/html");}catch{doc=document.implementation.createHTMLDocument();}
 
-  const sections = [
-    {
-      title: "HTTP RESPONSE",
-      items: [
-        { label:"Status code",    value: data.status_code,     ok: data.status_code < 400 },
-        { label:"Response time",  value: data.response_time_ms+"ms", ok: data.response_time_ms < 2000 },
-        { label:"HTTPS",          value: data.https?"Enabled":"Missing", ok: data.https },
-        { label:"Redirects",      value: data.redirects+" hops", ok: data.redirects < 3 },
-        { label:"Server",         value: data.server||"Not disclosed", ok: true },
-      ]
-    },
-    {
-      title: "SECURITY HEADERS",
-      items: [
-        { label:"HSTS",               value: data.headers.hsts?"Present":"Missing",           ok: data.headers.hsts },
-        { label:"Content-Security-Policy", value: data.headers.csp?"Present":"Missing",      ok: data.headers.csp },
-        { label:"X-Frame-Options",    value: data.headers.x_frame_options?"Present":"Missing", ok: data.headers.x_frame_options },
-        { label:"X-Content-Type",     value: data.headers.x_content_type?"Present":"Missing",  ok: data.headers.x_content_type },
-        { label:"CORS policy",        value: data.headers.cors,  ok: data.headers.cors !== "open" },
-      ]
-    },
-    {
-      title: "CRAWLABILITY & SEO",
-      items: [
-        { label:"robots.txt",    value: data.robots_txt?"Found":"Not found",   ok: data.robots_txt },
-        { label:"sitemap.xml",   value: data.sitemap_xml?"Found":"Not found",  ok: data.sitemap_xml },
-        { label:"Meta viewport", value: data.meta_viewport?"Present":"Missing", ok: data.meta_viewport },
-        { label:"Open Graph",    value: data.open_graph?"Present":"Missing",   ok: data.open_graph },
-      ]
-    }
-  ];
+  const title=doc.querySelector("title")?.textContent?.trim()||"";
+  findings.push({check:"Title tag",pass:title.length>0&&title.length<=60,value:title||"MISSING",detail:!title?"Missing title tag":title.length>60?`Too long (${title.length} chars, max 60)`:`Good (${title.length} chars)`});
 
-  sections.forEach(sec => {
-    const card = document.createElement("div");
-    card.className = "probe-card";
-    let html = `<div class="probe-card-title">${sec.title}</div>`;
-    sec.items.forEach(item => {
-      const cls = item.ok ? "probe-ok" : "probe-fail";
-      html += `<div class="probe-item"><span class="probe-item-label">${item.label}</span><span class="probe-item-value ${cls}">${item.value}</span></div>`;
-    });
-    card.innerHTML = html;
-    el.appendChild(card);
+  const metaDesc=doc.querySelector('meta[name="description"]')?.getAttribute("content")||"";
+  findings.push({check:"Meta description",pass:metaDesc.length>=50&&metaDesc.length<=160,value:metaDesc?`${metaDesc.length} chars`:"MISSING",detail:!metaDesc?"Missing meta description":metaDesc.length<50?"Too short (<50 chars)":metaDesc.length>160?"Too long (>160 chars)":"Good"});
+
+  const vp=doc.querySelector('meta[name="viewport"]')?.getAttribute("content")||"";
+  findings.push({check:"Viewport meta tag",pass:vp.includes("width=device-width"),value:vp||"MISSING",detail:!vp?"Missing — critical for mobile":!vp.includes("width=device-width")?"Incorrect viewport value":"Present and correct"});
+
+  const h1s=doc.querySelectorAll("h1");
+  findings.push({check:"H1 tag",pass:h1s.length===1,value:`${h1s.length} found`,detail:h1s.length===0?"No H1 tag found":h1s.length>1?`Multiple H1 tags (${h1s.length}) — hurts SEO`:"Single H1 — correct"});
+
+  const imgs=doc.querySelectorAll("img");
+  const noAlt=[...imgs].filter(i=>i.getAttribute("alt")===null).length;
+  findings.push({check:"Image alt text",pass:noAlt===0,value:`${noAlt}/${imgs.length} missing`,detail:noAlt>0?`${noAlt} images missing alt — accessibility + SEO issue`:imgs.length===0?"No images found":"All images have alt attributes"});
+
+  const ogT=doc.querySelector('meta[property="og:title"]'),ogD=doc.querySelector('meta[property="og:description"]'),ogI=doc.querySelector('meta[property="og:image"]');
+  findings.push({check:"Open Graph tags",pass:!!(ogT&&ogD&&ogI),value:[ogT?"og:title":"",ogD?"og:desc":"",ogI?"og:image":""].filter(Boolean).join(", ")||"NONE",detail:!(ogT&&ogD&&ogI)?`Missing: ${[!ogT?"og:title":"",!ogD?"og:description":"",!ogI?"og:image":""].filter(Boolean).join(", ")})`:"All core OG tags present"});
+
+  const can=doc.querySelector('link[rel="canonical"]')?.getAttribute("href")||"";
+  findings.push({check:"Canonical tag",pass:!!can,value:can||"MISSING",detail:!can?"No canonical — duplicate content risk":"Present"});
+
+  findings.push({check:"HTTPS",pass:!!(data.url?.startsWith("https://")),value:data.url?.startsWith("https://")?"Enabled":"HTTP only",detail:!data.url?.startsWith("https://")?"Site not served over HTTPS":"HTTPS enforced"});
+
+  const rt=data.responseTime||0;
+  findings.push({check:"Response time",pass:rt<2000,value:rt?`${rt}ms`:"unknown",detail:rt>3000?"Very slow (>3s) — major UX impact":rt>2000?"Slow (>2s) — needs improvement":rt>1000?"Acceptable but could be faster":"Good response time"});
+
+  findings.push({check:"HTTP status code",pass:data.status>=200&&data.status<400,value:String(data.status||0),detail:data.status>=500?"Server error":data.status>=400?"Client error":data.status===0?"Could not connect":`OK (${data.status})`});
+
+  const secHdrs={"strict-transport-security":"HSTS","content-security-policy":"CSP","x-frame-options":"X-Frame-Options","x-content-type-options":"X-Content-Type-Options","referrer-policy":"Referrer-Policy","permissions-policy":"Permissions-Policy"};
+  Object.entries(secHdrs).forEach(([h,name])=>{
+    const present=!!headers[h];
+    findings.push({check:`${name} header`,pass:present,value:present?headers[h].slice(0,60):"MISSING",detail:!present?`Missing ${name} security header`:"Present"});
   });
 
-  if (data.issues?.length > 0) {
-    const card = document.createElement("div");
-    card.className = "probe-card";
-    let html = `<div class="probe-card-title">PROBE FINDINGS</div>`;
-    data.issues.forEach(issue => {
-      html += `<div class="probe-item"><span class="probe-item-label" style="color:#ff8c5b;">⚠ ${issue}</span></div>`;
-    });
-    card.innerHTML = html;
-    el.appendChild(card);
-  }
+  const inlineScripts=doc.querySelectorAll("script:not([src])").length;
+  findings.push({check:"Inline scripts",pass:inlineScripts<3,value:`${inlineScripts}`,detail:inlineScripts>=5?`${inlineScripts} inline scripts — major XSS surface, blocks CSP`:inlineScripts>=3?`${inlineScripts} inline scripts — moderate XSS risk`:inlineScripts===0?"No inline scripts — excellent for CSP":`${inlineScripts} inline script(s)`});
+
+  const forms=doc.querySelectorAll("form");
+  const noAction=[...forms].filter(f=>!f.getAttribute("action")).length;
+  findings.push({check:"Form action attributes",pass:noAction===0,value:`${forms.length} forms, ${noAction} missing`,detail:noAction>0?`${noAction} form(s) missing action attribute`:forms.length===0?"No forms found":"All forms have action attributes"});
+
+  const htmlKB=Math.round((data.htmlLength||0)/1024);
+  findings.push({check:"HTML document size",pass:htmlKB<100,value:`${htmlKB}KB`,detail:htmlKB>300?"Very large HTML (>300KB) — critical performance issue":htmlKB>100?"Large HTML (>100KB) — impacts parse time":"Good HTML size"});
+
+  findings.push({check:"robots.txt",pass:data.robotsTxt===true,value:data.robotsTxt?"Found":"Not found",detail:!data.robotsTxt?"No robots.txt — crawlers have no directives":"Present"});
+  findings.push({check:"sitemap.xml",pass:data.sitemapXml===true,value:data.sitemapXml?"Found":"Not found",detail:!data.sitemapXml?"No sitemap.xml — hurts search engine indexing":"Present"});
+
+  const schemaBlocks=doc.querySelectorAll('script[type="application/ld+json"]').length;
+  findings.push({check:"Schema markup (JSON-LD)",pass:schemaBlocks>0,value:schemaBlocks>0?`${schemaBlocks} block(s)`:"None",detail:schemaBlocks===0?"No structured data found — missed rich snippet opportunity":`${schemaBlocks} JSON-LD block(s) found`});
+
+  const lang=doc.querySelector("html")?.getAttribute("lang")||"";
+  findings.push({check:"HTML lang attribute",pass:!!lang,value:lang||"MISSING",detail:!lang?"Missing lang on <html> — screen readers can't determine language":`Set to "${lang}"`});
+
+  const favicon=doc.querySelector('link[rel*="icon"]');
+  findings.push({check:"Favicon",pass:!!favicon,value:favicon?"Present":"Missing",detail:!favicon?"No favicon defined":"Favicon present"});
+
+  findings.push({check:"URL redirected",pass:!data.redirected,value:data.redirected?`→ ${data.finalUrl}`:"No redirect",detail:data.redirected?`Redirects to ${data.finalUrl} — check for unnecessary hops`:"No redirect"});
+
+  const extCSS=[...doc.querySelectorAll('link[rel="stylesheet"][href]')].length;
+  findings.push({check:"External stylesheets",pass:extCSS<=3,value:`${extCSS}`,detail:extCSS>5?`${extCSS} stylesheets — multiple render-blocking resources`:extCSS>3?`${extCSS} stylesheets — consider consolidating`:`${extCSS} stylesheet(s)`});
+
+  return findings;
 }
 
-// ── AGENT TASK ─────────────────────────────────────────────────────────────
-async function runAgentTask(url, task, mode, probeContext) {
-  const sys = "You are a QA automation agent. Return structured JSON bug reports only. No markdown. No explanation outside JSON.";
-  const probeCtx = probeContext ? `\nHTTP probe data: ${JSON.stringify(probeContext)}` : "";
-  const usr = `Analyze this website for QA issues in category: "${task.label}".
+function renderRawData(data,findings){
+  const box=document.getElementById("raw-box");
+  if(!data){box.innerHTML=`<div style="color:var(--text-dim);text-align:center;padding:40px;">No data yet</div>`;return;}
+  const h=data.headers||{};
+  let html=`<div class="raw-section"><div class="raw-section-title">HTTP RESPONSE</div>`;
+  [[`Status code`,data.status,data.status>=200&&data.status<400?"good":"bad"],[`Response time`,`${data.responseTime}ms`,data.responseTime<2000?"good":data.responseTime<3000?"warn":"bad"],[`Final URL`,data.finalUrl,data.finalUrl===data.url?"good":"warn"],[`Redirected`,data.redirected?"Yes":"No",data.redirected?"warn":"good"],[`HTML size`,`${Math.round((data.htmlLength||0)/1024)}KB`,data.htmlLength<100000?"good":"warn"],[`HTTPS`,data.url?.startsWith("https")?"Yes":"No",data.url?.startsWith("https")?"good":"bad"],[`robots.txt`,data.robotsTxt?"Found":"Missing",data.robotsTxt?"good":"warn"],[`sitemap.xml`,data.sitemapXml?"Found":"Missing",data.sitemapXml?"good":"warn"]].forEach(([k,v,c])=>{html+=`<div class="raw-row"><span class="raw-key">${k}</span><span class="raw-val ${c||""}">${v}</span></div>`;});
+  html+=`</div><div class="raw-section"><div class="raw-section-title">SECURITY HEADERS</div>`;
+  ["strict-transport-security","content-security-policy","x-frame-options","x-content-type-options","referrer-policy","permissions-policy","cross-origin-embedder-policy","cross-origin-opener-policy"].forEach(header=>{
+    const v=h[header];html+=`<div class="raw-row"><span class="raw-key">${header}</span><span class="raw-val ${v?"good":"bad"}">${v?v.slice(0,80):"MISSING"}</span></div>`;
+  });
+  html+=`</div><div class="raw-section"><div class="raw-section-title">ALL RESPONSE HEADERS</div>`;
+  Object.entries(h).sort().forEach(([k,v])=>{html+=`<div class="raw-row"><span class="raw-key">${k}</span><span class="raw-val">${String(v).slice(0,100)}</span></div>`;});
+  html+=`</div>`;
+  if(findings?.length){
+    const passed=findings.filter(f=>f.pass).length;
+    html+=`<div class="raw-section"><div class="raw-section-title">STATIC ANALYSIS — ${passed}/${findings.length} PASSED</div>`;
+    findings.forEach(f=>{html+=`<div class="finding-item ${f.pass?"finding-pass":"finding-fail"}"><div style="font-size:9px;color:${f.pass?"#5bdfb0":"#ff5b7f"};letter-spacing:.1em;margin-bottom:3px;">${f.pass?"✓":"✗"} ${f.check} — ${f.value}</div><div style="color:var(--text-second);font-size:11px;">${f.detail}</div></div>`;});
+    html+=`</div>`;
+  }
+  box.innerHTML=html;
+}
+
+async function runAgentTask(url,task,data,findings){
+  const html=data?.html||"",headers=data?.headers||{};
+  const taskFindings=findings.filter(f=>{
+    const id=task.id;
+    if(id==="seo")    return["Title tag","Meta description","H1 tag","Canonical tag","Open Graph tags","Schema markup (JSON-LD)","robots.txt","sitemap.xml"].includes(f.check);
+    if(id==="sec")    return f.check.includes("header")||f.check==="HTTPS"||f.check==="Inline scripts";
+    if(id==="a11y")   return["Image alt text","HTML lang attribute","Form action attributes"].includes(f.check);
+    if(id==="mobile") return["Viewport meta tag","HTML document size","External stylesheets"].includes(f.check);
+    if(id==="perf")   return["Response time","HTML document size","Inline scripts","External stylesheets"].includes(f.check);
+    if(id==="api")    return["HTTP status code","URL redirected","Response time"].includes(f.check);
+    if(id==="crawl")  return["robots.txt","sitemap.xml","Canonical tag","Schema markup (JSON-LD)"].includes(f.check);
+    if(id==="ui")     return["Image alt text","Favicon","Title tag"].includes(f.check);
+    if(id==="auth")   return f.check.includes("Form");
+    if(id==="forms")  return f.check.includes("Form")||f.check==="Inline scripts";
+    return true;
+  });
+
+  let htmlSnippet="";
+  try{
+    const doc=new DOMParser().parseFromString(html,"text/html");
+    if(["seo","a11y","mobile"].includes(task.id)){const hm=html.match(/<head[\s\S]*?<\/head>/i);htmlSnippet=hm?hm[0].slice(0,3000):html.slice(0,2000);}
+    else if(["forms","auth"].includes(task.id)){const fm=(html.match(/<form[\s\S]*?<\/form>/gi)||[]);htmlSnippet=fm.slice(0,3).join("\n").slice(0,3000);}
+    else if(task.id==="ui"){htmlSnippet=html.slice(0,2500);}
+  }catch{}
+
+  const sys=`You are a senior QA engineer doing a real technical audit. You have ACTUAL fetched data. Be specific and harsh. Never give generic answers. Base everything on the real data provided. Do not make things up.`;
+  const usr=`DEEP QA ANALYSIS: "${task.label}"
 URL: ${url}
-Test mode: ${mode}
-Subtasks: ${task.subtasks.join(", ")}${probeCtx}
+HTTP: ${data?.status} in ${data?.responseTime}ms | HTTPS: ${data?.url?.startsWith("https")?"yes":"no"}
 
-Use the HTTP probe data to inform your analysis where relevant.
-Return JSON: {"status":"pass"|"fail"|"warning","score":<0-100>,"issues":[{"severity":"critical"|"high"|"medium"|"low"|"info","title":"...","description":"...","reproduction":"...","fix":"..."}],"summary":"one sentence"}
-Be specific and realistic. Return 0-3 issues.`;
-  try {
-    const raw = await callClaude(sys, usr);
-    return JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());
-  } catch(e) {
-    showError("Analysis error: "+e.message);
-    return { status:"warning", score:70, issues:[], summary:"Analysis completed with partial data." };
+REAL STATIC FINDINGS FOR THIS CATEGORY:
+${taskFindings.map(f=>`${f.pass?"PASS":"FAIL"} — ${f.check}: ${f.detail} [${f.value}]`).join("\n")||"No specific findings for this category"}
+
+RESPONSE HEADERS SAMPLE:
+${Object.entries(headers).slice(0,15).map(([k,v])=>`${k}: ${v}`).join("\n")}
+
+${htmlSnippet?`ACTUAL HTML SNIPPET:\n${htmlSnippet}`:""}
+
+Subtasks: ${task.subtasks.join(", ")}
+
+SCORING: Start at 100. Deduct: critical=-25, high=-15, medium=-8, low=-3.
+If static findings show failures, score MUST reflect this. A site with 3 FAIL static checks CANNOT score 75.
+
+Return ONLY this JSON (no other text):
+{"status":"pass"|"fail"|"warning","score":<integer 0-100>,"issues":[{"severity":"critical"|"high"|"medium"|"low"|"info","title":"<specific title>","description":"<exact problem with evidence from the real data>","reproduction":"<exact steps>","fix":"<specific code or config>"}],"summary":"<one sentence with specific details from real data>"}`;
+
+  try{
+    const raw=await callClaude(sys,usr,1500);
+    const result=parseJSON(raw);
+    // Validate score is grounded — recalculate if suspiciously generic
+    const failedChecks=taskFindings.filter(f=>!f.pass).length;
+    if(result.score===75&&failedChecks>0){result.score=Math.max(20,100-(failedChecks*12));}
+    return result;
+  }catch(e){
+    addLog("AI error for "+task.label+": "+e.message,"error");
+    const failed=taskFindings.filter(f=>!f.pass).length;
+    const score=Math.max(20,100-(failed*12));
+    return{status:failed>2?"fail":failed>0?"warning":"pass",score,issues:taskFindings.filter(f=>!f.pass).map(f=>({severity:f.check.includes("HTTPS")||f.check.includes("CSP")||f.check.includes("HSTS")?"high":"medium",title:f.check+" — "+f.value,description:f.detail,reproduction:"Check page source or response headers",fix:"Fix: "+f.check})),summary:`${taskFindings.filter(f=>f.pass).length}/${taskFindings.length} checks passed`};
   }
 }
 
-async function generateFullReport(url, taskResults, mode, probeData) {
-  const issues = taskResults.flatMap(t=>(t.result?.issues||[]).map(i=>({...i,category:t.task.label})));
-  const usr = `QA report for: ${url}
-Mode: ${mode}
-HTTP probe: ${probeData ? JSON.stringify(probeData) : "not available"}
-Tasks: ${JSON.stringify(taskResults.map(t=>({category:t.task.label,status:t.result?.status,score:t.result?.score})))}
-Issues: ${JSON.stringify(issues)}
-Return JSON: {"overall_score":<0-100>,"health":"healthy"|"degraded"|"critical","headline":"<punchy>","top_priority":"<most important fix>","next_run_recommendation":"<when and why>","positive_findings":["...","..."]}`;
-  try {
-    const raw = await callClaude("You are a senior QA engineer. Return JSON only.", usr);
-    return JSON.parse(raw.replace(/```json\n?|\n?```/g,"").trim());
-  } catch {
-    return { overall_score:75, health:"degraded", headline:"Analysis complete", top_priority:"Review flagged issues", next_run_recommendation:"Run again in 15 minutes", positive_findings:[] };
+async function generateFullReport(url,taskResults,mode,data,findings){
+  const issues=taskResults.flatMap(t=>(t.result?.issues||[]).map(i=>({...i,category:t.task.label})));
+  const passed=findings.filter(f=>f.pass).length,total=findings.length;
+  const avgScore=taskResults.length?Math.round(taskResults.reduce((s,t)=>s+(t.result?.score||0),0)/taskResults.length):0;
+  const critCount=issues.filter(i=>i.severity==="critical").length;
+  const highCount=issues.filter(i=>i.severity==="high").length;
+  const usr=`Final QA report for: ${url}
+Mode: ${mode} | HTTP: ${data?.status} in ${data?.responseTime}ms | HTTPS: ${data?.url?.startsWith("https")?"yes":"no"}
+Static analysis: ${passed}/${total} passed
+Average score: ${avgScore}/100
+Critical issues: ${critCount} | High: ${highCount}
+
+Task results:
+${taskResults.map(t=>`${t.task.label}: score=${t.result?.score} status=${t.result?.status} — ${t.result?.summary}`).join("\n")}
+
+Issues (${issues.length}):
+${issues.map(i=>`[${i.severity.toUpperCase()}] ${i.category}: ${i.title}`).join("\n")||"none"}
+
+Return ONLY JSON:
+{"overall_score":<integer, weighted by real data, NOT 75>,"health":"healthy"|"degraded"|"critical","headline":"<specific punchy summary with real finding>","top_priority":"<most impactful fix with specific detail>","next_run_recommendation":"<specific advice>","positive_findings":["<actual passing thing>","<another>"]}
+
+Score rules: <50=critical, 50-69=degraded, 70-84=degraded, 85+=healthy. Must match real data.`;
+  try{
+    const raw=await callClaude("Senior QA engineer. JSON only. Base on real data.",usr,1000);
+    const r=parseJSON(raw);
+    // Sanity check — if score is 75 but we have critical issues, override
+    if(r.overall_score===75&&critCount>0)r.overall_score=Math.max(25,75-(critCount*15)-(highCount*8));
+    return r;
+  }catch{
+    return{overall_score:avgScore,health:avgScore>=85?"healthy":avgScore>=60?"degraded":"critical",headline:`${issues.length} issues found — score ${avgScore}/100`,top_priority:issues[0]?`Fix: ${issues[0].title}`:"No critical issues",next_run_recommendation:"Run again after addressing high priority items",positive_findings:taskResults.filter(t=>t.result?.status==="pass").map(t=>t.task.label+" passed")};
   }
 }
 
-// ── UTILS ──────────────────────────────────────────────────────────────────
-function fmt(s) { return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
-function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
-function pdotHtml(color,size) { return `<span class="pdot" style="width:${size}px;height:${size}px;"><span class="pdot-ring" style="background:${color};"></span><span class="pdot-core" style="background:${color};"></span></span>`; }
-function setDotColor(el,color) { if(!el)return; el.querySelector(".pdot-ring").style.background=color; el.querySelector(".pdot-core").style.background=color; }
-function showError(msg) { const t=document.getElementById("error-toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",5000); }
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function pdotHtml(c,s){return`<span class="pdot" style="width:${s}px;height:${s}px;"><span class="pdot-ring" style="background:${c};"></span><span class="pdot-core" style="background:${c};"></span></span>`;}
+function setDotColor(el,c){if(!el)return;el.querySelector(".pdot-ring").style.background=c;el.querySelector(".pdot-core").style.background=c;}
 
-function addLog(msg,type="info") {
-  const colors={info:"#4f8ef7",success:"#5bdfb0",warn:"#f5d442",error:"#ff5b7f",system:"#9b6dff"};
+function addLog(msg,type="info"){
+  const colors={info:"#4f8ef7",success:"#5bdfb0",warn:"#f5d442",error:"#ff5b7f",system:"#9b6dff",data:"#6e7fff"};
   const time=new Date().toLocaleTimeString("en-US",{hour12:false});
-  const el=document.createElement("div"); el.className="log-line";
+  const el=document.createElement("div");el.className="log-line";
   el.innerHTML=`<span class="log-time">${time}</span><span class="log-type" style="color:${colors[type]||colors.info}">[${type.toUpperCase()}]</span><span class="log-msg">${msg}</span>`;
   document.getElementById("logs-inner").appendChild(el);
-  const box=document.getElementById("logs-box"); box.scrollTop=box.scrollHeight;
+  const box=document.getElementById("logs-box");box.scrollTop=box.scrollHeight;
 }
 
-function renderTaskCard(task,state) {
-  const el=document.getElementById("tc-"+task.id); if(!el)return;
-  const {phase:p,result,subtaskIndex}=state;
-  const status=result?.status||"idle"; const score=result?.score;
-  const statusColor=p==="running"?"#4f8ef7":status==="pass"?"#5bdfb0":status==="fail"?"#ff5b7f":status==="warning"?"#f5d442":"#3a3a6a";
+function updateFetchStatus(d){
+  const el=document.getElementById("fetch-status"),inner=document.getElementById("fetch-status-inner");
+  if(!d){el.style.display="none";return;}
+  el.style.display="block";
+  const sc=d.status>=200&&d.status<400?"#5bdfb0":"#ff5b7f";
+  const tc=d.responseTime<2000?"#5bdfb0":d.responseTime<3000?"#f5d442":"#ff5b7f";
+  inner.innerHTML=`<div class="fstat"><div class="fstat-label">HTTP</div><div class="fstat-value" style="color:${sc}">${d.status}</div></div><div class="fstat"><div class="fstat-label">TIME</div><div class="fstat-value" style="color:${tc}">${d.responseTime}ms</div></div><div class="fstat"><div class="fstat-label">HTTPS</div><div class="fstat-value" style="color:${d.url?.startsWith("https")?"#5bdfb0":"#ff5b7f"}">${d.url?.startsWith("https")?"✓":"✗"}</div></div><div class="fstat"><div class="fstat-label">HTML</div><div class="fstat-value">${Math.round((d.htmlLength||0)/1024)}KB</div></div><div class="fstat"><div class="fstat-label">HSTS</div><div class="fstat-value" style="color:${d.headers?.["strict-transport-security"]?"#5bdfb0":"#ff5b7f"}">${d.headers?.["strict-transport-security"]?"✓":"✗"}</div></div><div class="fstat"><div class="fstat-label">CSP</div><div class="fstat-value" style="color:${d.headers?.["content-security-policy"]?"#5bdfb0":"#ff5b7f"}">${d.headers?.["content-security-policy"]?"✓":"✗"}</div></div><div class="fstat"><div class="fstat-label">robots.txt</div><div class="fstat-value" style="color:${d.robotsTxt?"#5bdfb0":"#f5d442"}">${d.robotsTxt?"✓":"✗"}</div></div><div class="fstat"><div class="fstat-label">sitemap</div><div class="fstat-value" style="color:${d.sitemapXml?"#5bdfb0":"#f5d442"}">${d.sitemapXml?"✓":"✗"}</div></div>${d.error?`<div class="fstat"><div class="fstat-label">ERROR</div><div class="fstat-value" style="color:#ff5b7f">${d.error.slice(0,40)}</div></div>`:""}`;
+}
+
+function renderTaskCard(task,state){
+  const el=document.getElementById("tc-"+task.id);if(!el)return;
+  const{phase:p,result,subtaskIndex:si}=state;
+  const status=result?.status||"idle",score=result?.score;
+  const sc=p==="running"?"#4f8ef7":status==="pass"?"#5bdfb0":status==="fail"?"#ff5b7f":status==="warning"?"#f5d442":"#3a3a6a";
   if(p==="running"){el.classList.add("running");el.querySelector(".task-scan-bar").style.display="block";}
   else{el.classList.remove("running");el.querySelector(".task-scan-bar").style.display="none";}
-  el.querySelector(".task-corner").style.background=p==="done"?`radial-gradient(circle at top right,${statusColor}18,transparent 70%)`:"none";
+  el.querySelector(".task-corner").style.background=p==="done"?`radial-gradient(circle at top right,${sc}18,transparent 70%)`:"none";
   const sb=el.querySelector(".task-score");
-  if(score!==undefined){sb.textContent=score;sb.style.color=statusColor;sb.style.borderColor=statusColor+"35";sb.style.background=statusColor+"10";sb.style.display="inline";}else sb.style.display="none";
-  const stEl=el.querySelector(".task-status");
-  if(p==="done"){stEl.textContent=status.toUpperCase();stEl.style.color=statusColor;stEl.style.display="inline";}else stEl.style.display="none";
+  if(score!==undefined){sb.textContent=score;sb.style.color=sc;sb.style.borderColor=sc+"35";sb.style.background=sc+"10";sb.style.display="inline";}else sb.style.display="none";
+  const st=el.querySelector(".task-status-txt");
+  if(p==="done"){st.textContent=status.toUpperCase();st.style.color=sc;st.style.display="inline";}else st.style.display="none";
   const rd=el.querySelector(".task-run-dot");
   if(p==="running"){rd.style.display="inline-block";setDotColor(rd,"#4f8ef7");}else rd.style.display="none";
-  const body=el.querySelector(".task-body"); body.innerHTML="";
+  const body=el.querySelector(".task-body");body.innerHTML="";
   if(p==="idle"){const pills=document.createElement("div");pills.className="subtask-pills";task.subtasks.forEach(s=>{const sp=document.createElement("span");sp.className="subtask-pill";sp.textContent=s;pills.appendChild(sp);});body.appendChild(pills);}
   if(p==="running"){
     const pills=document.createElement("div");pills.className="subtask-pills";
-    task.subtasks.forEach((s,i)=>{const sp=document.createElement("span");sp.className="subtask-pill"+(i===subtaskIndex?" active":i<subtaskIndex?" done":"");sp.textContent=(i<subtaskIndex?"✓ ":i===subtaskIndex?"▶ ":"")+s;pills.appendChild(sp);});
+    task.subtasks.forEach((s,i)=>{const sp=document.createElement("span");sp.className="subtask-pill"+(i===si?" active":i<si?" done":"");sp.textContent=(i<si?"✓ ":i===si?"▶ ":"")+s;pills.appendChild(sp);});
     body.appendChild(pills);
-    const chk=document.createElement("div");chk.className="task-checking";chk.textContent="checking "+task.subtasks[subtaskIndex||0]+"...";body.appendChild(chk);
+    const chk=document.createElement("div");chk.className="task-checking";chk.textContent="checking "+task.subtasks[si||0]+"...";body.appendChild(chk);
   }
   if(p==="done"&&result){
     const sum=document.createElement("p");sum.className="task-summary";sum.textContent=result.summary;body.appendChild(sum);
-    if(result.issues?.length>0){const iw=document.createElement("div");iw.className="task-issues";result.issues.forEach(issue=>{const sc=SEV[issue.severity]||SEV.info;const row=document.createElement("div");row.className="task-issue";row.style.background=sc.bg;row.style.borderColor=sc.color+"25";row.innerHTML=`<span class="issue-badge" style="color:${sc.color}">${sc.label}</span><span class="issue-title-sm">${issue.title}</span>`;iw.appendChild(row);});body.appendChild(iw);}
+    if(result.issues?.length>0){const iw=document.createElement("div");iw.className="task-issues";result.issues.forEach(issue=>{const s=SEV[issue.severity]||SEV.info;const row=document.createElement("div");row.className="task-issue";row.style.background=s.bg;row.style.borderColor=s.color+"25";row.innerHTML=`<span class="issue-badge" style="color:${s.color}">${s.label}</span><span class="issue-title-sm">${issue.title}</span>`;iw.appendChild(row);});body.appendChild(iw);}
     else{const ni=document.createElement("div");ni.className="no-issues";ni.textContent="✓ No issues found";body.appendChild(ni);}
   }
 }
 
-function buildTaskGrid() {
-  const grid=document.getElementById("tasks-grid"); grid.innerHTML="";
+function buildTaskGrid(){
+  const grid=document.getElementById("tasks-grid");grid.innerHTML="";
   activeTasks.forEach(task=>{
     const card=document.createElement("div");card.className="task-card";card.id="tc-"+task.id;
-    card.innerHTML=`<div class="task-scan-bar" style="display:none;"></div><div class="task-corner"></div>
-      <div class="task-header"><div class="task-title"><span class="task-icon">${task.icon}</span><span class="task-name">${task.label}</span></div>
-      <div class="task-meta"><span class="pdot task-run-dot" style="width:7px;height:7px;display:none;"><span class="pdot-ring" style="background:#4f8ef7;"></span><span class="pdot-core" style="background:#4f8ef7;"></span></span>
-      <span class="task-score" style="display:none;"></span><span class="task-status" style="display:none;"></span></div></div>
-      <div class="task-body"></div>`;
+    card.innerHTML=`<div class="task-scan-bar" style="display:none;"></div><div class="task-corner"></div><div class="task-header"><div class="task-title"><span class="task-icon">${task.icon}</span><span class="task-name">${task.label}</span></div><div class="task-meta"><span class="pdot task-run-dot" style="width:7px;height:7px;display:none;"><span class="pdot-ring" style="background:#4f8ef7;"></span><span class="pdot-core" style="background:#4f8ef7;"></span></span><span class="task-score" style="display:none;"></span><span class="task-status-txt" style="display:none;"></span></div></div><div class="task-body"></div>`;
     grid.appendChild(card);renderTaskCard(task,{phase:"idle"});
   });
 }
 
-function renderIssues() {
-  const list=document.getElementById("issues-list");const empty=document.getElementById("issues-empty");
+function renderIssues(){
+  const list=document.getElementById("issues-list"),empty=document.getElementById("issues-empty");
   list.innerHTML="";
-  if(allIssues.length===0){empty.style.color=phase==="running"?"var(--text-dim)":"#5bdfb0";empty.textContent=phase==="running"?"Scan in progress...":"✓ No issues found!";empty.style.display="block";return;}
+  if(allIssues.length===0){empty.style.color=phase==="running"?"var(--text-dim)":"#5bdfb0";empty.textContent=phase==="running"?"Scan in progress...":"✓ No issues found.";empty.style.display="block";return;}
   empty.style.display="none";
   document.getElementById("tab-issues-btn").textContent=`Issues (${allIssues.length})`;
   ["critical","high","medium","low","info"].forEach(sev=>{
     allIssues.filter(i=>i.severity===sev).forEach(issue=>{
-      const sc=SEV[issue.severity]||SEV.info;
+      const s=SEV[issue.severity]||SEV.info;
       const row=document.createElement("div");row.className="issue-row";
-      row.innerHTML=`<div class="issue-row-head"><span class="issue-sev-badge" style="color:${sc.color};border-color:${sc.color}45;background:${sc.color}12;">${sc.label}</span><span class="issue-row-title">${issue.title}</span><span class="issue-row-cat">${issue.category}</span><span class="issue-row-arrow">▼</span></div>
-        <div class="issue-row-body"><div class="issue-section"><div class="issue-section-label" style="color:#4f8ef7;">DESCRIPTION</div><div class="issue-section-text" style="color:var(--text-second);">${issue.description}</div></div>
-        <div class="issue-section"><div class="issue-section-label" style="color:#6e7fff;">REPRODUCTION</div><div class="issue-section-text" style="color:var(--text-second);">${issue.reproduction}</div></div>
-        <div class="issue-section"><div class="issue-section-label" style="color:#5bdfb0;">SUGGESTED FIX</div><div class="issue-section-text" style="color:#90e0c0;">${issue.fix}</div></div></div>`;
-      row.querySelector(".issue-row-head").addEventListener("click",()=>{
-        const body=row.querySelector(".issue-row-body");const arrow=row.querySelector(".issue-row-arrow");
-        const open=body.classList.toggle("open");arrow.textContent=open?"▲":"▼";
-        row.style.borderColor=open?sc.color+"38":"var(--border)";row.style.boxShadow=open?`0 0 18px ${sc.color}12`:"none";
-      });
+      row.innerHTML=`<div class="issue-row-head"><span class="issue-sev-badge" style="color:${s.color};border-color:${s.color}45;background:${s.color}12;">${s.label}</span><span class="issue-row-title">${issue.title}</span><span class="issue-row-cat">${issue.category}</span><span class="issue-row-arrow">▼</span></div><div class="issue-row-body"><div class="issue-section"><div class="issue-section-label" style="color:#4f8ef7;">DESCRIPTION</div><div class="issue-section-text" style="color:var(--text-second);">${issue.description}</div></div><div class="issue-section"><div class="issue-section-label" style="color:#6e7fff;">REPRODUCTION</div><div class="issue-section-text" style="color:var(--text-second);">${issue.reproduction}</div></div><div class="issue-section"><div class="issue-section-label" style="color:#5bdfb0;">SUGGESTED FIX</div><div class="issue-section-text" style="color:#90e0c0;">${issue.fix}</div></div></div>`;
+      row.querySelector(".issue-row-head").addEventListener("click",()=>{const b=row.querySelector(".issue-row-body"),a=row.querySelector(".issue-row-arrow"),open=b.classList.toggle("open");a.textContent=open?"▲":"▼";row.style.borderColor=open?s.color+"38":"var(--border)";row.style.boxShadow=open?`0 0 18px ${s.color}12`:"none";});
       list.appendChild(row);
     });
   });
 }
 
-function updateMetrics() {
+function updateMetrics(){
   if(!report)return;
   document.getElementById("metrics").classList.remove("hidden");
-  const s=report.overall_score;const color=s>=80?"#5bdfb0":s>=60?"#f5d442":"#ff5b7f";
-  const circ=2*Math.PI*30;const dash=(s/100)*circ;
-  const arc=document.getElementById("score-arc");arc.setAttribute("stroke",color);arc.setAttribute("stroke-dasharray",dash+" "+circ);
-  const txt=document.getElementById("score-text");txt.setAttribute("fill",color);txt.textContent=s;
+  const s=report.overall_score,color=s>=80?"#5bdfb0":s>=60?"#f5d442":"#ff5b7f";
+  const circ=2*Math.PI*30,dash=(s/100)*circ;
+  document.getElementById("score-arc").setAttribute("stroke",color);document.getElementById("score-arc").setAttribute("stroke-dasharray",dash+" "+circ);
+  document.getElementById("score-text").setAttribute("fill",color);document.getElementById("score-text").textContent=s;
   document.getElementById("score-ring").style.filter=`drop-shadow(0 0 8px ${color}50)`;
   const hc=report.health==="healthy"?"#5bdfb0":report.health==="degraded"?"#f5d442":"#ff5b7f";
   const mvs=document.getElementById("mv-status");mvs.textContent=report.health.toUpperCase();mvs.style.color=hc;mvs.style.textShadow=`0 0 20px ${hc}55`;
-  const ic=allIssues.length;const icol=ic>0?"#ff8c5b":"#5bdfb0";
-  const mvi=document.getElementById("mv-issues");mvi.textContent=ic;mvi.style.color=icol;mvi.style.textShadow=`0 0 20px ${icol}55`;
-  const cc=allIssues.filter(i=>i.severity==="critical").length;const ccol=cc>0?"#ff5b7f":"#5bdfb0";
-  const mvc=document.getElementById("mv-critical");mvc.textContent=cc;mvc.style.color=ccol;mvc.style.textShadow=`0 0 20px ${ccol}55`;
-  const hh=allIssues.filter(i=>i.severity==="high").length;const hcol=hh>0?"#ff8c5b":"#5bdfb0";
-  const mvh=document.getElementById("mv-high");mvh.textContent=hh;mvh.style.color=hcol;mvh.style.textShadow=`0 0 20px ${hcol}55`;
+  const ic=allIssues.length,icol=ic>0?"#ff8c5b":"#5bdfb0";const mvi=document.getElementById("mv-issues");mvi.textContent=ic;mvi.style.color=icol;mvi.style.textShadow=`0 0 20px ${icol}55`;
+  const cc=allIssues.filter(i=>i.severity==="critical").length,ccol=cc>0?"#ff5b7f":"#5bdfb0";const mvc=document.getElementById("mv-critical");mvc.textContent=cc;mvc.style.color=ccol;mvc.style.textShadow=`0 0 20px ${ccol}55`;
+  const hh=allIssues.filter(i=>i.severity==="high").length,hcol=hh>0?"#ff8c5b":"#5bdfb0";const mvh=document.getElementById("mv-high");mvh.textContent=hh;mvh.style.color=hcol;mvh.style.textShadow=`0 0 20px ${hcol}55`;
   const mvt=document.getElementById("mv-tasks");mvt.textContent=activeTasks.length;mvt.style.color="#7eb3ff";mvt.style.textShadow="0 0 20px #7eb3ff55";
 }
 
-function renderReport() {
-  const placeholder=document.getElementById("report-placeholder");const content=document.getElementById("report-content");
+function renderReport(){
+  const placeholder=document.getElementById("report-placeholder"),content=document.getElementById("report-content");
   if(!report){placeholder.style.display="block";content.classList.add("hidden");return;}
   placeholder.style.display="none";content.classList.remove("hidden");content.innerHTML="";
-  const hc=document.createElement("div");hc.className="report-card";
-  hc.innerHTML=`<div class="report-card-bar"></div><div class="report-label">AI ASSESSMENT — ${currentMode.toUpperCase()} SCAN</div><p class="report-headline">${report.headline}</p><p class="report-rec">${report.next_run_recommendation}</p>`;
-  content.appendChild(hc);
+  const hc=document.createElement("div");hc.className="report-card";hc.innerHTML=`<div class="report-card-bar"></div><div class="report-label">AI ASSESSMENT — ${currentMode.toUpperCase()} SCAN · REAL HTTP DATA</div><p class="report-headline">${report.headline}</p><p class="report-rec">${report.next_run_recommendation}</p>`;content.appendChild(hc);
   if(report.top_priority){const pc=document.createElement("div");pc.className="priority-card";pc.innerHTML=`<span class="priority-icon">🎯</span><div><div class="priority-label">TOP PRIORITY</div><p class="priority-text">${report.top_priority}</p></div>`;content.appendChild(pc);}
-  if(report.positive_findings?.length>0){const posCard=document.createElement("div");posCard.className="positives-card";let html=`<div class="positives-label">WHAT'S WORKING</div>`;report.positive_findings.forEach(f=>{html+=`<div class="positive-item"><span class="positive-check">✓</span><span>${f}</span></div>`;});posCard.innerHTML=html;content.appendChild(posCard);}
-  const bc=document.createElement("div");bc.className="breakdown-card";let bhtml=`<div class="breakdown-label">ISSUE BREAKDOWN</div><div class="breakdown-grid">`;
-  ["critical","high","medium","low"].forEach(sev=>{const sc=SEV[sev];const count=allIssues.filter(i=>i.severity===sev).length;bhtml+=`<div class="breakdown-item" style="background:${sc.bg};border-color:${sc.color}25;box-shadow:0 0 14px ${sc.color}14;"><div class="breakdown-num" style="color:${sc.color};text-shadow:0 0 16px ${sc.color}80;">${count}</div><div class="breakdown-name" style="color:${sc.color};">${sev}</div></div>`;});
-  bhtml+="</div>";bc.innerHTML=bhtml;content.appendChild(bc);
-  const tc=document.createElement("div");tc.className="timer-card";tc.id="report-timer-card";
-  tc.innerHTML=`<div class="timer-left">${pdotHtml("#9b6dff",7)}<span class="timer-label">Next auto-scan in</span></div><span class="timer-value" id="report-timer-val">15:00</span>`;
-  content.appendChild(tc);
+  if(report.positive_findings?.length>0){const pos=document.createElement("div");pos.className="positives-card";let h=`<div class="positives-label">WHAT'S WORKING</div>`;report.positive_findings.forEach(f=>{h+=`<div class="positive-item"><span class="positive-check">✓</span><span>${f}</span></div>`;});pos.innerHTML=h;content.appendChild(pos);}
+  const bc=document.createElement("div");bc.className="breakdown-card";let bh=`<div class="breakdown-label">ISSUE BREAKDOWN</div><div class="breakdown-grid">`;
+  ["critical","high","medium","low"].forEach(sev=>{const s=SEV[sev],count=allIssues.filter(i=>i.severity===sev).length;bh+=`<div class="breakdown-item" style="background:${s.bg};border-color:${s.color}25;box-shadow:0 0 14px ${s.color}14;"><div class="breakdown-num" style="color:${s.color};text-shadow:0 0 16px ${s.color}80;">${count}</div><div class="breakdown-name" style="color:${s.color};">${sev}</div></div>`;});
+  bh+="</div>";bc.innerHTML=bh;content.appendChild(bc);
+  const tc=document.createElement("div");tc.className="timer-card";tc.innerHTML=`<div class="timer-left">${pdotHtml("#9b6dff",7)}<span class="timer-label">Next auto-scan in</span></div><span class="timer-value" id="report-timer-val">15:00</span>`;content.appendChild(tc);
 }
 
-function startCountdown(targetUrl) {
+function startCountdown(targetUrl){
   clearInterval(timerInterval);let secs=15*60;
-  const hv=document.getElementById("header-timer-val");
   document.getElementById("header-timer").classList.remove("hidden");document.getElementById("header-timer").style.display="flex";
+  const hv=document.getElementById("header-timer-val");
   const tick=()=>{const f=fmt(secs);if(hv)hv.textContent=f;const rv=document.getElementById("report-timer-val");if(rv)rv.textContent=f;secs--;if(secs<0){clearInterval(timerInterval);addLog("Auto-scan triggered","system");startScan(targetUrl,currentMode);}};
   tick();timerInterval=setInterval(tick,1000);
 }
 
-// ── MAIN SCAN ──────────────────────────────────────────────────────────────
-async function startScan(targetUrl, mode) {
+async function startScan(targetUrl,mode){
   if(running)return;
   running=true;phase="running";currentUrl=targetUrl;currentMode=mode;
-  allIssues=[];report=null;probeData=null;runCount++;
-  activeTasks = ALL_TASKS[mode] || ALL_TASKS.both;
+  allIssues=[];report=null;siteData=null;staticFindings=[];runCount++;
+  activeTasks=ALL_TASKS[mode]||ALL_TASKS.both;
 
   document.getElementById("hero").classList.add("hidden");
   document.getElementById("dashboard").classList.remove("hidden");
-  document.getElementById("probe-banner").style.display="none";
+  document.getElementById("fetch-status").style.display="none";
   document.getElementById("status-url").textContent=targetUrl;
   document.getElementById("run-label").textContent="run #"+runCount;
   document.getElementById("rescan-btn").classList.add("hidden");
@@ -725,90 +668,79 @@ async function startScan(targetUrl, mode) {
   document.getElementById("issues-empty").style.display="block";
   document.getElementById("issues-list").innerHTML="";
   document.getElementById("tab-issues-btn").textContent="Issues";
-  document.getElementById("tab-probe-btn").textContent="HTTP Probe";
-  document.getElementById("probe-results").innerHTML="";
+  document.getElementById("raw-box").innerHTML=`<div style="color:var(--text-dim);text-align:center;padding:40px;">Fetching real site data...</div>`;
   buildTaskGrid();document.getElementById("logs-inner").innerHTML="";
 
-  addLog(`Scan initiated — mode: ${mode.toUpperCase()}  target: ${targetUrl}`,"system");
-  addLog(`Running ${activeTasks.length} test categories...`,"info");
+  addLog(`Scan started — mode: ${mode.toUpperCase()} — target: ${targetUrl}`,"system");
+  addLog(`${activeTasks.length} test categories queued`,"info");
 
-  // HTTP Probe first
-  const probe = await httpProbe(targetUrl);
-
-  const taskResults=[];
-  for(const task of activeTasks){
-    addLog(`▶ Starting task: ${task.label}`,"info");
-    renderTaskCard(task,{phase:"running",subtaskIndex:0});
-    for(let i=0;i<task.subtasks.length;i++){
-      renderTaskCard(task,{phase:"running",subtaskIndex:i});
-      addLog(`  checking ${task.subtasks[i]}...`,"info");
-      await sleep(380+Math.random()*250);
-    }
-    addLog(`  calling AI analyzer for ${task.label}...`,"info");
-    const result=await runAgentTask(targetUrl,task,mode,probe);
-    taskResults.push({task,result});renderTaskCard(task,{phase:"done",result});
-    const cc=(result.issues||[]).filter(i=>i.severity==="critical").length;
-    const cnt=(result.issues||[]).length;
-    if(result.status==="fail"||cc>0)addLog(`  ✗ ${task.label}: ${cnt} issue(s) — ${cc} critical`,"error");
-    else if(result.status==="warning")addLog(`  ⚠ ${task.label}: ${cnt} warning(s)`,"warn");
-    else addLog(`  ✓ ${task.label}: PASSED (score: ${result.score})`,"success");
+  // PHASE 1: Real HTTP fetch
+  addLog("Fetching target site via real HTTP request...","data");
+  try{
+    siteData=await fetchSite(targetUrl);
+    updateFetchStatus(siteData);
+    if(siteData.error){addLog(`Fetch warning: ${siteData.error}`,"warn");}
+    else{addLog(`Fetched ${Math.round((siteData.htmlLength||0)/1024)}KB HTML — HTTP ${siteData.status} in ${siteData.responseTime}ms`,"success");}
+    if(siteData.redirected)addLog(`Redirected to: ${siteData.finalUrl}`,"warn");
+    const h=siteData.headers||{};
+    addLog(`HTTPS:${siteData.url?.startsWith("https")?"✓":"✗"} HSTS:${h["strict-transport-security"]?"✓":"✗"} CSP:${h["content-security-policy"]?"✓":"✗"} X-Frame:${h["x-frame-options"]?"✓":"✗"}`,"data");
+    addLog(`robots.txt:${siteData.robotsTxt?"✓":"✗"} sitemap.xml:${siteData.sitemapXml?"✓":"✗"}`,"data");
+  }catch(e){
+    addLog(`Fetch failed: ${e.message}`,"error");
+    siteData={url:targetUrl,status:0,error:e.message,headers:{},html:"",htmlLength:0,responseTime:0,robotsTxt:false,sitemapXml:false};
+    updateFetchStatus(siteData);
   }
 
-  allIssues=taskResults.flatMap(tr=>(tr.result?.issues||[]).map(i=>({...i,category:tr.task.label})));
-  renderIssues();
-  addLog("Generating comprehensive report...","system");
-  report=await generateFullReport(targetUrl,taskResults,mode,probe);
+  // PHASE 2: Static analysis
+  addLog("Running static analysis on real HTML...","data");
+  staticFindings=analyzeStatically(siteData);
+  const passed=staticFindings.filter(f=>f.pass).length;
+  const failed=staticFindings.filter(f=>!f.pass).length;
+  addLog(`Static: ${passed}/${staticFindings.length} passed — ${failed} issue(s) detected`,"data");
+  staticFindings.filter(f=>!f.pass).forEach(f=>addLog(`  ✗ ${f.check}: ${f.detail}`,"warn"));
+  renderRawData(siteData,staticFindings);
+
+  // PHASE 3: AI deep analysis
+  const taskResults=[];
+  for(const task of activeTasks){
+    addLog(`▶ ${task.label} — AI deep analysis...`,"info");
+    renderTaskCard(task,{phase:"running",subtaskIndex:0});
+    for(let i=0;i<task.subtasks.length;i++){renderTaskCard(task,{phase:"running",subtaskIndex:i});await sleep(180+Math.random()*120);}
+    const result=await runAgentTask(targetUrl,task,siteData,staticFindings);
+    taskResults.push({task,result});renderTaskCard(task,{phase:"done",result});
+    const cc=(result.issues||[]).filter(i=>i.severity==="critical").length,cnt=(result.issues||[]).length;
+    if(result.status==="fail"||cc>0)addLog(`  ✗ ${task.label}: score ${result.score} — ${cnt} issues (${cc} critical)`,"error");
+    else if(result.status==="warning")addLog(`  ⚠ ${task.label}: score ${result.score} — ${cnt} warnings`,"warn");
+    else addLog(`  ✓ ${task.label}: score ${result.score} — clean`,"success");
+    const newIssues=(result.issues||[]).map(i=>({...i,category:task.label}));
+    allIssues=[...allIssues,...newIssues];
+    if(newIssues.length>0)renderIssues();
+  }
+
+  // PHASE 4: Final report
+  addLog("Generating final AI report...","system");
+  report=await generateFullReport(targetUrl,taskResults,mode,siteData,staticFindings);
   const cc2=allIssues.filter(i=>i.severity==="critical").length;
-  addLog(`Report complete — Score: ${report.overall_score}/100`,"success");
-  addLog(`Found ${cc2} critical, ${allIssues.filter(i=>i.severity==="high").length} high severity issues`,cc2>0?"error":"warn");
-  addLog(`Health: ${report.health?.toUpperCase()}`,report.health==="healthy"?"success":"warn");
+  addLog(`━━━ COMPLETE ━━━ Score: ${report.overall_score}/100  Health: ${report.health?.toUpperCase()}`,"system");
+  addLog(`${cc2} critical · ${allIssues.filter(i=>i.severity==="high").length} high · ${allIssues.filter(i=>i.severity==="medium").length} medium · ${allIssues.filter(i=>i.severity==="low").length} low`,cc2>0?"error":"warn");
+  addLog(`Static checks: ${passed}/${staticFindings.length} passed`,"data");
+
   phase="done";running=false;
-  updateMetrics();renderReport();
+  renderIssues();updateMetrics();renderReport();
   setDotColor(document.getElementById("status-dot"),"#5bdfb0");
   document.getElementById("rescan-btn").classList.remove("hidden");
-  document.getElementById("header-status-text").textContent=`run #${runCount} complete`;
+  document.getElementById("header-status-text").textContent=`run #${runCount} — score ${report.overall_score}`;
   setDotColor(document.getElementById("header-dot"),"#5bdfb0");
   setDotColor(document.getElementById("log-dot"),"#9b6dff");
-  addLog("Next scan scheduled in 15:00","system");
+  addLog("Next scan in 15:00","system");
   startCountdown(targetUrl);
 }
 
-// ── EVENTS ─────────────────────────────────────────────────────────────────
-document.querySelectorAll(".tab-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
-  });
-});
-
-document.getElementById("run-btn").addEventListener("click",()=>{
-  let val=document.getElementById("url-input").value.trim();
-  if(!val)return;
-  if(!val.startsWith("http"))val="https://"+val;
-  clearInterval(timerInterval);startScan(val,currentMode);
-});
-
-document.getElementById("url-input").addEventListener("keydown",e=>{
-  if(e.key==="Enter")document.getElementById("run-btn").click();
-});
-
-document.getElementById("rescan-btn").addEventListener("click",()=>{
-  clearInterval(timerInterval);startScan(currentUrl,currentMode);
-});
-
-document.getElementById("done-btn").addEventListener("click",()=>{
-  clearInterval(timerInterval);
-  running=false;
-  phase="idle";
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("hero").classList.remove("hidden");
-  document.getElementById("hero").style.animation="fadeIn .4s ease";
-  document.getElementById("header-status").classList.add("hidden");
-  document.getElementById("header-timer").classList.add("hidden");
-  document.getElementById("url-input").value="";
-});
+document.querySelectorAll(".tab-btn").forEach(btn=>{btn.addEventListener("click",()=>{document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");document.getElementById("panel-"+btn.dataset.tab).classList.add("active");});});
+document.getElementById("run-btn").addEventListener("click",()=>{let v=document.getElementById("url-input").value.trim();if(!v)return;if(!v.startsWith("http"))v="https://"+v;clearInterval(timerInterval);startScan(v,currentMode);});
+document.getElementById("url-input").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("run-btn").click();});
+document.getElementById("rescan-btn").addEventListener("click",()=>{clearInterval(timerInterval);startScan(currentUrl,currentMode);});
+document.getElementById("done-btn").addEventListener("click",()=>{clearInterval(timerInterval);running=false;phase="idle";document.getElementById("dashboard").classList.add("hidden");document.getElementById("hero").classList.remove("hidden");document.getElementById("hero").style.animation="fadeIn .4s ease";document.getElementById("header-status").classList.add("hidden");document.getElementById("header-timer").classList.add("hidden");document.getElementById("fetch-status").style.display="none";document.getElementById("url-input").value="";});
 </script>
 </body>
 </html>
