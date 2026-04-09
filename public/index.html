@@ -107,17 +107,17 @@
   .logo-name{font-family:var(--syne);font-weight:800;font-size:16px;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.02em}
   .logo-sub{font-size:9px;color:var(--text-dim);letter-spacing:.12em}
   #header-right{display:flex;align-items:center;gap:20px;font-size:11px}
-  .grad-text{background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .grad-text{background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
   .pdot{position:relative;display:inline-block;flex-shrink:0}
   .pdot-ring{position:absolute;inset:0;border-radius:50%;opacity:.35;animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite}
   .pdot-core{position:absolute;inset:0;border-radius:50%}
   #main{max-width:1200px;margin:0 auto;padding:0 20px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));position:relative;z-index:1}
   #hero{text-align:center;padding:50px 16px 48px;animation:fadeIn .6s ease}
-  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:20px;margin-bottom:28px;border:1px solid rgba(79,142,247,.22);background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(155,109,255,.07));font-size:11px;letter-spacing:.08em}
-  #hero h1{font-family:var(--syne);font-weight:800;font-size:clamp(30px,5.5vw,54px);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border-radius:20px;margin-bottom:28px;border:1px solid rgba(79,142,247,.22);background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(155,109,255,.07));font-size:11px;letter-spacing:.08em;white-space:nowrap;max-width:calc(100vw - 40px);overflow:hidden;text-overflow:ellipsis}
+  #hero h1{font-family:var(--syne);font-weight:800;font-size:clamp(26px,7vw,54px);line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
   #hero h1 .line1{color:var(--text-primary);display:block}
-  #hero h1 .line2{background:linear-gradient(90deg,#4f8ef7,#9b6dff,#7eb3ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite;display:block}
-  #hero p{color:var(--text-second);font-size:13px;max-width:480px;margin:0 auto 36px;line-height:1.75}
+  #hero h1 .line2{background:linear-gradient(90deg,#4f8ef7,#9b6dff,#7eb3ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;-webkit-text-stroke:0px;animation:shimmer 4s linear infinite;display:block}
+  #hero p{color:var(--text-second);font-size:13px;max-width:480px;margin:0 auto 36px;line-height:1.7}
   #mode-selector{display:flex;justify-content:center;gap:10px;margin-bottom:28px;flex-wrap:wrap}
   .mode-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 18px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;transition:all .2s;min-width:90px;touch-action:manipulation}
   .mode-btn:hover{border-color:var(--border-hi)}
@@ -137,7 +137,7 @@
   .pill{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:11px;color:var(--text-second)}
   #dashboard{padding-top:20px;animation:fadeIn .3s ease}
   #status-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 20px;margin-bottom:12px;flex-wrap:wrap;gap:12px}
-  #status-left,#status-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}#status-url{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #status-left,#status-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}#done-btn,#rescan-btn{padding:5px 12px;font-size:10px}#status-url{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .status-label{color:var(--text-dim);font-size:11px;letter-spacing:.06em}
   .run-label{color:var(--text-dim);font-size:11px}
   .mode-badge{font-size:10px;padding:2px 10px;border-radius:4px;border:1px solid rgba(79,142,247,.3);background:rgba(79,142,247,.1);color:var(--blue-light);letter-spacing:.06em}
@@ -145,7 +145,7 @@
   #rescan-btn:hover{border-color:var(--blue);color:var(--blue-light)}
   #done-btn{background:transparent;border:1px solid rgba(155,109,255,.35);color:#c4a0ff;border-radius:7px;padding:5px 14px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:all .2s}
   #done-btn:hover{background:rgba(155,109,255,.12);border-color:rgba(155,109,255,.6)}
-  #fetch-status{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:12px;display:none;animation:fadeIn .3s ease}
+  #fetch-status{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:12px;display:none;animation:fadeIn .3s ease;overflow-x:auto;-webkit-overflow-scrolling:touch}
   #fetch-status-inner{display:flex;gap:20px;flex-wrap:wrap}
   .fstat{display:flex;flex-direction:column;gap:1px}
   .fstat-label{font-size:9px;color:var(--text-dim);letter-spacing:.1em}
@@ -189,7 +189,7 @@
   .issue-row{border-radius:10px;overflow:hidden;border-width:1px;border-style:solid;border-color:var(--border);transition:border-color .25s,box-shadow .25s;cursor:pointer}
   .issue-row-head{display:flex;align-items:center;gap:12px;padding:12px 16px}
   .issue-sev-badge{font-size:10px;padding:2px 9px;border-radius:4px;flex-shrink:0;letter-spacing:.06em;border-width:1px;border-style:solid}
-  .issue-row-title{flex:1;font-size:13px;color:var(--text-primary)}
+  .issue-row-title{flex:1;font-size:13px;color:var(--text-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .issue-row-cat{font-size:10px;color:var(--text-dim)}
   .issue-row-arrow{font-size:11px;color:var(--text-dim)}
   .issue-row-body{display:none;background:var(--bg0);padding:14px 16px;border-top:1px solid var(--border)}
@@ -239,7 +239,7 @@
   .timer-card{border-radius:12px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border-hi);background:linear-gradient(135deg,rgba(79,142,247,.06),rgba(155,109,255,.06))}
   .timer-left{display:flex;align-items:center;gap:10px}
   .timer-label{font-size:12px;color:var(--text-second)}
-  .timer-value{font-size:22px;font-family:var(--syne);font-weight:700;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .timer-value{font-size:22px;font-family:var(--syne);font-weight:700;background:linear-gradient(90deg,#7eb3ff,#c4a0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
 
   /* FIX PROMPTS */
   #fix-content{display:flex;flex-direction:column;gap:16px;animation:fadeIn .4s ease}
@@ -252,7 +252,7 @@
   .fix-card{border-radius:14px;border:1px solid var(--border);overflow:hidden}
   .fix-card-claude{border-color:rgba(155,109,255,.3)}
   .fix-card-gpt{border-color:rgba(16,163,127,.3)}
-  .fix-card-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .fix-card-head{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .fix-card-claude .fix-card-head{background:linear-gradient(135deg,rgba(155,109,255,.1),rgba(79,142,247,.1))}
   .fix-card-gpt .fix-card-head{background:linear-gradient(135deg,rgba(16,163,127,.1),rgba(16,163,127,.05))}
   .fix-card-label{display:flex;align-items:center;gap:10px}
@@ -280,8 +280,12 @@
   .fix-issue-row:last-child{border-bottom:none}
 
   @media(max-width:600px){
-    #hero{padding:36px 16px 40px}
-    #hero p{font-size:12px;margin-bottom:28px}
+    #hero{padding:32px 16px 36px}
+    #hero h1{font-size:clamp(24px,8.5vw,38px);line-height:1.12;margin-bottom:12px}
+    #hero h1 .line1{display:block;margin-bottom:2px}
+    #hero h1 .line2{display:block}
+    #hero p{font-size:12px;margin-bottom:24px;line-height:1.6;max-width:100%}
+    .hero-badge{font-size:10px;padding:4px 12px;margin-bottom:20px}
     #mode-selector{gap:8px}
     .mode-btn{min-width:80px;padding:9px 12px}
     .mode-btn .mode-icon{font-size:18px}
@@ -290,8 +294,9 @@
     #url-input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border-hi);background:var(--bg3)}
     #run-btn{width:100%;justify-content:center;padding:13px;border-radius:8px;font-size:14px}
     #url-border{display:none}
-    .feature-pills{gap:6px}
-    .pill{font-size:10px;padding:4px 10px}
+    .feature-pills{gap:5px}
+    .pill{font-size:10px;padding:4px 9px}
+    .pill:nth-child(n+6){display:none}
     #status-bar{padding:10px 14px}
     #status-url{max-width:140px}
     .run-label{display:none}
@@ -325,7 +330,13 @@
     #header-right{gap:12px;font-size:10px}
   }
   @media(max-width:380px){
+    #hero h1{font-size:clamp(22px,9vw,32px)}
+    .mode-btn{min-width:72px;padding:8px 10px}
+    .tab-btn{padding:5px 8px;font-size:9px}
     #metrics{grid-template-columns:1fr 1fr}
+    #status-mode-badge{display:none}
+    .issue-row-title{white-space:normal;font-size:11px}
+    .fix-card-logo{width:24px;height:24px;font-size:12px}
     .mode-btn{min-width:72px;padding:8px 10px}
     .tab-btn{padding:5px 8px;font-size:9px}
     .breakdown-item{min-width:60px;padding:8px 10px}
