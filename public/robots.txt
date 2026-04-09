@@ -1,0 +1,7 @@
+
+Copy
+
+User-agent: *
+Allow: /
+ 
+Sitemap: https://sheildqa.netlify.app/sitemap.xml
